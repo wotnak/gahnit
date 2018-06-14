@@ -1,0 +1,41 @@
+type User {
+  id: ID! @unique
+  username: String! @unique
+  password: String!
+  displayName: String!
+}
+
+type Customer {
+  id: ID! @unique
+  name: String!
+  nip: String!
+  regon: String
+  address: Address!
+  devices: [Device!]!
+}
+
+type Address {
+  country: String!
+  city: String!
+  street: String
+  building: String!
+  postCode: String!
+  postDepartment: String
+}
+
+type Device {
+  id: ID! @unique
+  type: DeviceType!
+  serialNumber: String!
+  UDTNumber: String!
+  productionYear: String!
+  producent: String!
+  owner: Customer!
+}
+
+type DeviceType {
+  id: ID! @unique
+  name: String!
+  preferedName: String
+  conservationEveryNDays: Int
+}
