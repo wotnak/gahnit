@@ -1,63 +1,8 @@
 mutation {
-  user1: createUser(data: {
-    username: "adampoloczek"
+  createUser(data: {
+    username: "admin"
     password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
-    displayName: "Adam Poloczek"
-  }) { id }
-  user2: createUser(data: {
-    username: "aleksandrapoloczek"
-    password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
-    displayName: "Aleksandra Poloczek"
-  }) { id }
-  user3: createUser(data: {
-    username: "maciejpoloczek"
-    password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
-    displayName: "Maciej Poloczek"
-  }) { id }
-
-  customer1: createCustomer(data: {
-    name: "F.U.T. TOM-TRANS S.C. TOMASZ SZUBERT - ALICJA SZUBERT"
-    nip: "???"
-    address: {
-      create: {
-        country: "PL"
-        city: "Opole"
-        street: "Kowalska"
-        building: "1"
-        postCode: "45-588"
-      }
-
-    }
-  }) {
-    id
-  }
-
-  createDevice(data: {
-    serialNumber: "asdasd1232s"
-    UDTNumber: "udt123e21s2"
-    productionYear: "2001"
-    producent: "Dautel"
-    type: {
-      create: {
-        name: "Dzwig"
-      }
-    }
-    owner: {
-      create: {
-        name: "Beare1s221"
-        nip: "8173912sqw6312789"
-        address: {
-          create: {
-            country: "PL"
-            city: "Przywory"
-            street: "Wiejska"
-            building: "8"
-            postCode: "46-050"
-          }
-
-        }
-      }
-    }
+    displayName: "Admin"
   }) { id }
 
   deviceType1: createDeviceType(data: {
@@ -227,6 +172,5 @@ mutation {
     name: "Wózki jezdniowe podnośnikowe z mechanicznym napędem podnoszenia prowadzone i zdalnie sterowane"
     conservationEveryNDays: 60
   }) { id }
-
 
 }
