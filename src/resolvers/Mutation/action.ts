@@ -1,46 +1,66 @@
 export const action = {
-  // createDevice(parent, {
-  //   serialNumber,
-  //   UDTNumber,
-  //   productionYear,
-  //   producent,
-  //   type,
-  //   owner
-  // }, ctx, info) {
-  //   return ctx.db.mutation.createDevice(
-  //     {
-  //       data: {
-  //         serialNumber,
-  //         UDTNumber,
-  //         productionYear,
-  //         producent,
-  //         type:  { connect: {id: type } },
-  //         owner: { connect: {id: owner} }
-  //       }
-  //     },
-  //     info
-  //   )
-  // },
 
-  // updateDevice(parent, {id, data}, ctx, info) {
-  //   const {serialNumber, UDTNumber, productionYear, producent, type, owner} = data
-  //   return ctx.db.mutation.updateDevice(
-  //     {
-  //       data: {
-  //         serialNumber,
-  //         UDTNumber,
-  //         productionYear,
-  //         producent,
-  //         type:  { connect: {id: type.connect.id } },
-  //         owner: { connect: {id: owner.connect.id} }
-  //       },
-  //       where: { id }
-  //     },
-  //     info
-  //   )
-  // },
+  addAction(parent, {deviceID, data}, ctx, info) {
+    if (data.service) {
+      const { date, device, customer, employee, start, end, elements} = data.service
+      return ctx.db.mutation.createAction({
+        type: "service",
+        date,
+        employee,
+        start,
+        end,
+        device: { connect: { id: device } },
+        customer: { connect: { id: customer } },
+        elements: { create: elements }
+      }, info)
+    }
+    if (data.protocol) {
+      const { date, device, customer, inspector, results, notes} = data.protocol
+      return ctx.db.mutation.createAction({
+        type: "protocol",
+        date,
+        device: { connect: { id: device } },
+        customer: { connect: { id: customer } },
+        inspector,
+        results,
+        notes
+      }, info)
+    }
+  },
 
-  // deleteDevice(parent, { id }, ctx, info) {
-  //   return ctx.db.mutation.deleteDevice({ where: { id } })
-  // },
+  updateAction(parent, {id, data}, ctx, info) {
+    if (data.service) {
+      const { date, device, customer, employee, start, end } = data.service
+      return ctx.db.mutation.createAction({
+        data: {
+          date,
+          employee,
+          start,
+          end,
+          device: { connect: { id: device } },
+          customer: { connect: { id: customer } }
+        },
+        where: { id }
+      }, info)
+    }
+    if (data.protocol) {
+      const { date, device, customer, inspector, results, notes} = data.protocol
+      return ctx.db.mutation.createAction({
+        data: {
+          date,
+          inspector,
+          results,
+          notes,
+          device: { connect: { id: device } },
+          customer: { connect: { id: customer } }
+        },
+        where: { id }
+      }, info)
+    }
+  },
+
+  removeAction(parent, {actionID}, ctx, info) {
+    return ctx.db.mutation.deleteAction({ where: { id } }, info)
+  }
+
 }

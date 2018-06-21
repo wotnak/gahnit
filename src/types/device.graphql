@@ -86,8 +86,8 @@ type Mutation {
   deleteDevice(id: ID!): Device!
 
   addAction(deviceID: ID!, data: AddActionInput!): Action!
-  removeAction(actionID: ID!): Action!
-  updateAction(actionID: ID!, data: ActionUpdateInput!): Action!
+  removeAction(id: ID!): Action!
+  updateAction(id: ID!, data: ActionUpdateInput!): Action!
 }
 
 
@@ -112,6 +112,7 @@ input AddActionInput {
 input AddServiceActionInput {
   date: String!
   customer: ID!
+  device: ID!
   elements: [ElementInput!]!
   employee: String
   start: String
@@ -127,6 +128,7 @@ input ElementInput {
 input AddProtocolActionInput {
   date: String!
   customer: ID!
+  device: ID!
   inspector: String!
   results: String!
   notes: String
@@ -140,6 +142,7 @@ input ActionUpdateInput {
 
 input ServiceActionUpdateInput {
   date: String
+  device: ID
   customer: ID
   employee: String
   start: String
@@ -148,6 +151,7 @@ input ServiceActionUpdateInput {
 
 input ProtocolActionUpdateInput {
   date: String
+  device: ID
   customer: ID
   inspector: String
   results: String
