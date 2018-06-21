@@ -59,7 +59,7 @@ export const action = {
     }
   },
 
-  removeAction(parent, {actionID}, ctx, info) {
+  removeAction(parent, { id }, ctx, info) {
     return ctx.db.mutation.deleteAction({ where: { id } }, info)
   }
 
