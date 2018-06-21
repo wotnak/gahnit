@@ -1,5 +1,4 @@
-
-const customer = {
+export const customer = {
   async createCustomer(parent, { name, nip, address }, ctx, info) {
     return ctx.db.mutation.createCustomer(
       {
@@ -17,16 +16,6 @@ const customer = {
             }
           }
         }
-      },
-      info
-    )
-    return ctx.db.mutation.createPost(
-      {
-        data: {
-          title,
-          text,
-          address
-        },
       },
       info
     )
@@ -50,7 +39,5 @@ const customer = {
 
   deleteCustomer(parent, { id }, ctx, info) {
     return ctx.db.mutation.deleteCustomer({ where: { id } })
-  },
+  }
 }
-
-module.exports = { customer }

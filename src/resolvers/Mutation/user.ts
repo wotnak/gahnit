@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs')
+import * as bcrypt from 'bcryptjs'
 
-const user = {
+export const user = {
   async createUser(parent, args, ctx, info) {
     const password = await bcrypt.hash(args.password, 10)
     const user = await ctx.db.mutation.createUser({
@@ -30,5 +30,3 @@ const user = {
     return ctx.db.mutation.deleteUser({ where: { id } })
   },
 }
-
-module.exports = { user }

@@ -1,5 +1,4 @@
-
-const device = {
+export const device = {
   createDevice(parent, {
     serialNumber,
     UDTNumber,
@@ -45,5 +44,3 @@ const device = {
     return ctx.db.mutation.deleteDevice({ where: { id } })
   },
 }
-
-module.exports = { device }

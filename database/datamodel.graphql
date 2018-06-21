@@ -26,11 +26,21 @@ type Address {
 type Device {
   id: ID! @unique
   type: DeviceType!
+
   serialNumber: String!
   UDTNumber: String!
+  VINnumber: String
+  recordNumber: String
+  registrationNumber: String
+
   productionYear: String!
   producent: String!
+
+  capacity: String
+
   owner: Customer!
+
+  actions: [Action!]!
 }
 
 type DeviceType {
@@ -38,4 +48,31 @@ type DeviceType {
   name: String!
   preferedName: String
   conservationEveryNDays: Int
+}
+
+type Action {
+  id: ID! @unique
+  type: String!
+  date: String!
+  device: Device!
+  customer: Customer!
+
+  # ...Service
+  elements: [Element!]!
+  employee: String
+  start: String
+  end: String
+
+  # ...Protocol
+  inspector: String
+  results: String
+  notes: String
+}
+
+
+type Element {
+  id: ID! @unique
+  name: String
+  amount: Float
+  price: Float
 }

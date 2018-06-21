@@ -2,7 +2,7 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
 # to disable authentication:
-#disableAuth: true
+disableAuth: true
 secret: ${env:PRISMA_SECRET}
 
 # the file path pointing to your data model

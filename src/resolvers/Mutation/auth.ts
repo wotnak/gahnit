@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import * as bcrypt from 'bcryptjs'
+import { jwt } from 'jsonwebtoken'
 
-const auth = {
+export const auth = {
   async login(parent, { username, password }, ctx, info) {
     const user = await ctx.db.query.user({ where: { username } })
     if (!user) {
@@ -19,5 +19,3 @@ const auth = {
     }
   },
 }
-
-module.exports = { auth }
