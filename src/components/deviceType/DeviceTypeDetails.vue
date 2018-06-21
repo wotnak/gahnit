@@ -1,11 +1,11 @@
 <template>
 <div>
-  <template v-if="loading > 0">
+  <template v-if="$apollo.loading">
     <Loader/>
   </template>
 
   <template v-else>
-    <h1>Urządzenia</h1>
+    <h1>Urządzenia typu {{ deviceType.preferedName ? deviceType.preferedName : deviceType.name }}</h1>
     <table>
       <tr>
         <th>Id</th>
@@ -45,12 +45,22 @@ th, td {
       devices {
         id
         type {
+          id
           name
         }
         owner {
           id
           name
         }
+      }
+    }
+  `
+  const TYPE_QUERY = gql `
+    query TypeQuery($id: ID!) {
+      deviceType(id: $id) {
+        id
+        name
+        preferedName
       }
     }
   `
@@ -61,15 +71,20 @@ th, td {
     // Local state
     data: () => ({
       devices: {},
-      loading: 0,
+      deviceType: {}
     }),
     // Apollo GraphQL
     apollo: {
       devices: {
         query: DEVICES_QUERY,
-        loadingKey: 'loading',
         errorPolicy: 'all'
       },
+      deviceType: {
+        query: TYPE_QUERY,
+        variables() {
+          return {id: this.$route.params.id}
+        }
+      }
     }
   }
 </script>
