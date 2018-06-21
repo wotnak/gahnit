@@ -45,11 +45,10 @@
 </script>
 
 
-<style scoped>
-  .logout:hover {
-    cursor: pointer;
-  }
-  .userMenu {
-    margin-left: 10px;
-  }
+<style scoped lang="stylus">
+.logout:hover
+  cursor: pointer
+
+.userMenu
+  margin-left: 10px
 </style>

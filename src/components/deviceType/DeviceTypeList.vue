@@ -27,27 +27,23 @@
   </div>
 </template>
 
-<style scoped>
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-th, td {
-  border: 1px solid black;
-}
+<style scoped lang="stylus">
+table
+  border-collapse: collapse
+  width: 100%
 
-td>a{
-  display: block;
-}
+th, td
+  border: 1px solid black
 
-tr:hover {
-  background: grey;
-}
+  a
+    display: block
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+tr:hover
+  background: grey
+
+a
+  text-decoration: none
+  color: inherit
 </style>
 
 <script>

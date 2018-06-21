@@ -8,30 +8,27 @@
   </nav>
 </template>
 
-<style>
-#menu {
-  width: 60px;
-  background-color: #98aec3;
-  display: flex;
-  flex-direction: column;
-}
+<style scoped lang="stylus">
+#menu
+  width: 60px
+  background-color: #98aec3
+  display: flex
+  flex-direction: column
 
-.menu-item {
-  color: white;
-  background-color: #618db9;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  border-radius: 5px;
-  margin: 5px;
-  font-size: 30px;
-  text-decoration: none;
-}
-.menu-item>img {
-  width: 70%;
-  padding: 15%;
-  filter: invert(100%);
-}
+.menu-item
+  color: white
+  background-color: #618db9
+  width: 50px
+  height: 50px
+  text-align: center
+  line-height: 50px
+  border-radius: 5px
+  margin: 5px
+  font-size: 30px
+  text-decoration: none
 
+  img
+    width: 70%
+    padding: 15%
+    filter: invert(100%)
 </style>

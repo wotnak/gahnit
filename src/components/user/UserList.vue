@@ -25,19 +25,17 @@
   </div>
 </template>
 
-<style scoped>
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-th, td {
-  border: 1px solid black;
-}
-.index {
-  width: 36px;
-  text-align: center;
-}
+<style scoped lang="stylus">
+table
+  border-collapse: collapse
+  width: 100%
 
+th, td
+  border: 1px solid black
+
+.index
+  width: 36px
+  text-align: center
 </style>
 
 <script>

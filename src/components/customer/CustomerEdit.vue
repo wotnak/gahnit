@@ -25,22 +25,21 @@
   </div>
 </template>
 
-<style scoped>
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  form>input {
-    max-width: 500px;
-    margin-bottom: 3px;
-  }
-  button {
-    margin-top: 10px;
-    max-width: 100px;
-  }
-  h4 {
-    margin: 0
-  }
+<style scoped lang="stylus">
+form 
+  display: flex
+  flex-direction: column
+
+  input 
+    max-width: 500px
+    margin-bottom: 3px
+
+button
+  margin-top: 10px
+  max-width: 100px
+
+h4
+  margin: 0
 </style>
 
 <script>

@@ -15,23 +15,21 @@
 </template>
 
 
-<style scoped>
-.login {
-  background-color: #618db9;
-  min-height: 100vh;
-}
-.login, form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
+<style scoped lang="stylus">
+.login
+  background-color: #618db9
+  min-height: 100vh
 
-form {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-}
+.login, form 
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+
+form 
+  background: white
+  border-radius: 10px
+  padding: 20px
 </style>
 <script>
   import gql from 'graphql-tag'

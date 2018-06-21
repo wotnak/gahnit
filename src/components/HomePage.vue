@@ -4,7 +4,3 @@
     <p>Strona główna.</p>
   </div>
 </template>
-
-<style>
-
-</style>
