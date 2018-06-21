@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcryptjs'
-import { jwt } from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken'
 
 export const auth = {
   async login(parent, { username, password }, ctx, info) {
