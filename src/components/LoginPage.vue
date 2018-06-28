@@ -16,8 +16,8 @@
 
 
 <style scoped lang="stylus">
+dark = #1d2227
 .login
-  background-color: #618db9
   min-height: 100vh
 
 .login, form 
@@ -27,6 +27,7 @@
   flex-direction: column
 
 form 
+  color: dark
   background: white
   border-radius: 10px
   padding: 20px

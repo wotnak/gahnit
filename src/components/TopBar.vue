@@ -20,12 +20,14 @@ export default {
 </script>
 
 <style scoped  lang="stylus">
+dark = #1d2227
+light = #ffffff
 #topbar
-  width: 100vw
-  background-color: #618db9
+  max-width: 100vw
+  background-color: dark
   height: 40px
   text-align: center
-  color: #2c3e50
+  color: light
   display: flex
   align-items: center
   justify-content: space-between
