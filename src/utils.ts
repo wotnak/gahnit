@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken'
 
 export function getUserId(ctx) {
   const Authorization = ctx.request.get('Authorization')
