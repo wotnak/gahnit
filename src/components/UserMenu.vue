@@ -20,14 +20,12 @@
   export default {
     name: 'userMenu',
     data: () => ({
-      me: {},
-      loading: 0,
+      me: {}
     }),
     // Apollo GraphQL
     apollo: {
       me: {
         query: ME_QUERY,
-        loadingKey: 'loading',
         errorPolicy: 'all'
       },
     },
@@ -37,7 +35,6 @@
         localStorage.removeItem(AUTH_TOKEN)
         this.$root.$data.userId = localStorage.getItem(USER_ID)
         this.$root.$data.token = localStorage.getItem(AUTH_TOKEN)
-        //this.$router.push({ path: '/' })
         this.$router.go(this.$router.currentRoute)
       }
     }
