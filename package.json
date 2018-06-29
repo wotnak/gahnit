@@ -23,6 +23,7 @@
     "subscriptions-transport-ws": "0.9.9",
     "vue": "2.5.16",
     "vue-apollo": "3.0.0-beta.16",
+    "vue-good-table": "^2.8.2",
     "vue-no-ssr": "^0.2.2",
     "vue-router": "3.0.1",
     "vue-template-compiler": "2.5.16"
