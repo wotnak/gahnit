@@ -1,43 +1,31 @@
 <template>
 <div>
-  <template v-if="loading > 0">
+  <template v-if="$apollo.loading">
     <Loader/>
   </template>
 
   <template v-else>
     <router-link :to="{ name: 'CustomerNew'}">Dodaj nowego</router-link>
     <h1>Klienci</h1>
-    <table>
-      <tr>
-        <th>Lp.</th>
-        <th>Nazwa</th>
-      </tr>
 
-      <tr v-for="(customer, index) in customers" :key="customer.id">
-        <td>{{index+1}}</td>
-        <td><router-link :to="{ name: 'CustomerDetails', params: { id: customer.id }}">{{ customer.name }}</router-link></td>
-      </tr>
+    <VueGoodTable
+      :columns="columns"
+      :rows="customers"
+      :lineNumbers="true"
+      @on-row-click="onRowClick"
+    />
 
-    </table>
   </template>
 </div>
 </template>
-
-<style scoped lang="stylus">
-table
-  border-collapse: collapse
-  width: 100%
-
-th, td
-  border: 1px solid black
-</style>
 
 <script>
   import gql from 'graphql-tag'
 
   import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
 
-  // GraphQL query
   const CUSTOMERS_QUERY = gql `
     query customers {
       customers {
@@ -47,20 +35,27 @@ th, td
     }
   `
 
-  // Component def
   export default {
-    components: { Loader },
-    // Local state
+    components: { Loader, VueGoodTable },
     data: () => ({
+      columns: [
+        { label: 'Nazwa', field: 'name'}
+      ],
       customers: {},
-      loading: 0,
     }),
-    // Apollo GraphQL
+
+    methods: {
+      onRowClick({ row }) {
+
+        this.$router.push({ name: 'CustomerDetails', params: { id: row.id }})
+      }
+    },
+
+    // query data
     apollo: {
       customers: {
-        query: CUSTOMERS_QUERY,
-        loadingKey: 'loading',
-      },
+        query: CUSTOMERS_QUERY
+      }
     }
   }
 </script>

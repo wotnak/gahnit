@@ -1,48 +1,31 @@
 <template>
   <div>
-    <template v-if="loading > 0">
+    <template v-if="$apollo.loading">
       <Loader/>
     </template>
 
     <template v-else>
       <router-link :to="{ name: 'UserNew'}">Dodaj nowego</router-link>
       <h1>Użytkownicy</h1>
-      <table>
-        <tr>
-          <th>Lp.</th>
-          <th>Login</th>
-          <th>Nazwa</th>
-        </tr>
 
-        <tr v-for="(user,index) in users" :key="user.id">
-          <td class="index">{{index+1}}</td>
-          <td><router-link :to="{ name: 'UserDetails', params: { id: user.id }}">{{ user.username }}</router-link></td>
-          <td><router-link :to="{ name: 'UserDetails', params: { id: user.id }}">{{ user.displayName }}</router-link></td>
-        </tr>
+      <VueGoodTable
+        :columns="columns"
+        :rows="users"
+        :lineNumbers="true"
+        @on-row-click="onRowClick"
+      />
 
-      </table>
     </template>
   </div>
 </template>
 
-<style scoped lang="stylus">
-table
-  border-collapse: collapse
-  width: 100%
-
-th, td
-  border: 1px solid black
-
-.index
-  width: 36px
-  text-align: center
-</style>
-
 <script>
-  import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
 
-  // GraphQL query
+  import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+
   const USERS_QUERY = gql `
     query UsersQuery {
       users {
@@ -53,21 +36,27 @@ th, td
     }
   `
 
-  // Component def
   export default {
-    components: { Loader },
-    // Local state
+    components: { Loader, VueGoodTable },
     data: () => ({
-      users: {},
-      loading: 0,
+      columns: [
+        { label: 'Login', field: 'username'},
+        { label: 'Nazwa', field: 'displayName'}
+      ],
+      users: {}
     }),
-    // Apollo GraphQL
+
+    methods: {
+      onRowClick({ row }) {
+        this.$router.push({ name: 'UserDetails', params: { id: row.id }})
+      }
+    },
+
+    // data query
     apollo: {
       users: {
-        query: USERS_QUERY,
-        loadingKey: 'loading',
-        errorPolicy: 'all'
-      },
+        query: USERS_QUERY
+      }
     }
   }
 </script>

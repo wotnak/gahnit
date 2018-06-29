@@ -1,56 +1,31 @@
 <template>
   <div>
-    <template v-if="loading > 0">
+    <template v-if="$apollo.loading">
       <Loader/>
     </template>
 
     <template v-else>
       <router-link :to="{ name: 'DeviceTypeNew'}">Dodaj nowy</router-link>
       <h1>Typy urządzeń</h1>
-      <table>
-        <tr>
-          <th>Lp.</th>
-          <th>Nazwa</th>
-          <th>Pełna nazwa</th>
-          <th>Konserwacja</th>
-        </tr>
 
-        <tr v-for="(type, index) in deviceTypes" :key="type.id">
-          <td>{{index+1}}</td>
-          <td><router-link :to="{ name: 'DeviceTypeDetails', params: { id: type.id }}">{{ type.preferedName ? type.preferedName : "" }}</router-link></td>
-          <td><router-link :to="{ name: 'DeviceTypeDetails', params: { id: type.id }}">{{ type.name }}</router-link></td>
-          <td>co {{type.conservationEveryNDays}} dni</td>
-        </tr>
+      <VueGoodTable
+        :columns="columns"
+        :rows="deviceTypes"
+        :lineNumbers="true"
+        @on-row-click="onRowClick"
+      />
 
-      </table>
     </template>
   </div>
 </template>
 
-<style scoped lang="stylus">
-table
-  border-collapse: collapse
-  width: 100%
-
-th, td
-  border: 1px solid black
-
-  a
-    display: block
-
-tr:hover
-  background: grey
-
-a
-  text-decoration: none
-  color: inherit
-</style>
-
 <script>
-  import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
 
-  // GraphQL query
+  import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+
   const DEVICE_TYPES_QUERY = gql `
     query DeviceTypesQuery {
       deviceTypes {
@@ -62,21 +37,28 @@ a
     }
   `
 
-  // Component def
   export default {
-    components: { Loader },
-    // Local state
+    components: { Loader, VueGoodTable },
     data: () => ({
-      deviceTypes: {},
-      loading: 0,
+      columns: [
+        { label: 'Nazwa', field: 'preferedName'},
+        { label: 'Pełna nazwa', field: 'name'},
+        { label: 'Konserwacja', field: 'conservationEveryNDays', type: 'number', formatFn: (days) => { return `co ${days} dni` } }
+      ],
+      deviceTypes: {}
     }),
-    // Apollo GraphQL
+
+    methods: {
+      onRowClick({ row }) {
+        this.$router.push({ name: 'DeviceTypeDetails', params: { id: row.id }})
+      }
+    },
+
+    // query data
     apollo: {
       deviceTypes: {
-        query: DEVICE_TYPES_QUERY,
-        loadingKey: 'loading',
-        errorPolicy: 'all'
-      },
+        query: DEVICE_TYPES_QUERY
+      }
     }
   }
 </script>

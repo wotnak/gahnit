@@ -1,52 +1,38 @@
 <template>
 <div>
-  <template v-if="loading > 0">
+  <template v-if="$apollo.loading">
     <Loader/>
   </template>
 
   <template v-else>
     <router-link :to="{ name: 'DeviceNew'}">Dodaj nowe</router-link>
     <h1>Urządzenia</h1>
-    <table>
-      <tr>
-        <th>Lp.</th>
-        <th>Id</th>
-        <th>Właściciel</th>
-        <th>Typ</th>
-      </tr>
 
-      <tr v-for="(device, index) in devices" :key="device.id">
-        <td>{{index+1}}</td>
-        <td><router-link :to="{ name: 'DeviceDetails', params: { id: device.id }}">{{ device.id }}</router-link></td>
-        <td><router-link :to="{ name: 'CustomerDetails', params: { id: device.owner.id }}">{{ device.owner.name }}</router-link></td>
-        <td>{{device.type.name}}</td>
-      </tr>
+    <VueGoodTable
+      :columns="columns"
+      :rows="devices"
+      :lineNumbers="true"
+      @on-row-click="onRowClick"
+    />
 
-    </table>
   </template>
 </div>
 </template>
 
-<style scoped lang="stylus">
-table
-  border-collapse: collapse
-  width: 100%
-
-th, td
-  border: 1px solid black
-</style>
-
 <script>
-  import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
 
-  // GraphQL query
+  import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+
   const DEVICES_QUERY = gql `
     query DevicesQuery {
       devices {
         id
         type {
           id
+          preferedName
           name
         }
         owner {
@@ -57,21 +43,28 @@ th, td
     }
   `
 
-  // Component def
   export default {
-    components: { Loader },
-    // Local state
+    components: { Loader, VueGoodTable },
     data: () => ({
-      devices: {},
-      loading: 0,
+      columns: [
+        { label: 'Id', field: 'id' },
+        { label: 'Właściciel', field: 'owner.name' },
+        { label: 'Typ', fieldFn: (row) => { return row.preferedName ? row.preferedName : row.name } }
+      ],
+      devices: {}
     }),
-    // Apollo GraphQL
+
+    methods: {
+      onRowClick({ row }) {
+        this.$router.push({ name: 'DeviceDetails', params: { id: row.id }})
+      }
+    },
+
+    // query data
     apollo: {
       devices: {
-        query: DEVICES_QUERY,
-        loadingKey: 'loading',
-        errorPolicy: 'all'
-      },
+        query: DEVICES_QUERY
+      }
     }
   }
 </script>
