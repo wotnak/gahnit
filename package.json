@@ -1,7 +1,6 @@
 {
-  "name": "vue-apollo-instagram-example",
+  "name": "gahnit-client",
   "version": "0.0.1",
-  "description": ":camera: Instagram clone built with Vue 2 & Apollo Client",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
