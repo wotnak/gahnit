@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LoginPage from 'components/LoginPage'
-import NotFoundPage from 'components/NotFoundPage'
-import HomePage from 'components/HomePage'
+import LoginPage from './components/LoginPage'
+import NotFoundPage from './components/NotFoundPage'
+import HomePage from './components/HomePage'
 
-import CustomerList from 'components/customer/CustomerList'
-import CustomerNew from 'components/customer/CustomerNew'
-import CustomerDetails from 'components/customer/CustomerDetails'
-import CustomerEdit from 'components/customer/CustomerEdit'
+import CustomerList from './components/customer/CustomerList'
+import CustomerNew from './components/customer/CustomerNew'
+import CustomerDetails from './components/customer/CustomerDetails'
+import CustomerEdit from './components/customer/CustomerEdit'
 
 
-import DeviceList from 'components/device/DeviceList'
-import DeviceNew from 'components/device/DeviceNew'
-import DeviceDetails from 'components/device/DeviceDetails'
-import DeviceEdit from 'components/device/DeviceEdit'
+import DeviceList from './components/device/DeviceList'
+import DeviceNew from './components/device/DeviceNew'
+import DeviceDetails from './components/device/DeviceDetails'
+import DeviceEdit from './components/device/DeviceEdit'
 
-import DeviceTypeList from 'components/deviceType/DeviceTypeList'
-import DeviceTypeNew from 'components/deviceType/DeviceTypeNew'
-import DeviceTypeDetails from 'components/deviceType/DeviceTypeDetails'
-import DeviceTypeEdit from 'components/deviceType/DeviceTypeEdit'
+import DeviceTypeList from './components/deviceType/DeviceTypeList'
+import DeviceTypeNew from './components/deviceType/DeviceTypeNew'
+import DeviceTypeDetails from './components/deviceType/DeviceTypeDetails'
+import DeviceTypeEdit from './components/deviceType/DeviceTypeEdit'
 
-import UserList from 'components/user/UserList'
-import UserNew from 'components/user/UserNew'
-import UserDetails from 'components/user/UserDetails'
-import UserEdit from 'components/user/UserEdit'
+import UserList from './components/user/UserList'
+import UserNew from './components/user/UserNew'
+import UserDetails from './components/user/UserDetails'
+import UserEdit from './components/user/UserEdit'
 
-import { checkAuth as isLoggedIn } from '../utils'
+import { checkAuth as isLoggedIn } from './utils'
 
 Vue.use(Router)
 
