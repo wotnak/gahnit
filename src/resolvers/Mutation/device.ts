@@ -31,8 +31,8 @@ export const device = {
           UDTNumber,
           productionYear,
           producent,
-          type:  { connect: {id: type.connect.id } },
-          owner: { connect: {id: owner.connect.id} }
+          type:  { connect: {id: type } },
+          owner: { connect: {id: owner } }
         },
         where: { id }
       },
