@@ -163,7 +163,3 @@ h4
     }
   }
 </script>
-
-<style>
-
-</style>
