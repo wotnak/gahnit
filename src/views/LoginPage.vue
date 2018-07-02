@@ -16,17 +16,18 @@
 
 
 <style scoped lang="stylus">
-dark = #1d2227
+@import '../styles/variables.styl'
+
 .login
   min-height: 100vh
 
-.login, form 
+.login, form
   display: flex
   justify-content: center
   align-items: center
   flex-direction: column
 
-form 
+form
   color: dark
   background: white
   border-radius: 10px

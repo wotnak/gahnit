@@ -23,6 +23,8 @@
   import TopBar from '@/components/TopBar.vue';
   import Menu from '@/components/Menu.vue';
 
+  import '@/styles/styles.styl'
+
   export default {
     name: 'app',
     data: () => ({
@@ -35,35 +37,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-dark = #1d2227
-light = #ffffff
-
-html
-  overflow-y: scroll
-
-.content
-  box-sizing: border-box;
-  padding: 10px;
-  width: 100%;
-  background-color: light
-  color: dark
-  border-radius: 2px 0 0 0
-
-body
-  margin: 0
-  background-color: dark
-  color: light
-
-#app
-  font-family: Arial, sans-serif
-  color: light
-  display: flex
-  flex-direction: column
-  min-height: 100vh
-
-.c
-  display: flex
-  min-height: calc(100vh - 40px)
-</style>

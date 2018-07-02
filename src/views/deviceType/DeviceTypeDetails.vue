@@ -24,15 +24,6 @@
 </div>
 </template>
 
-<style scoped lang="stylus">
-table
-  border-collapse: collapse
-  width: 100%
-
-th, td
-  border: 1px solid black
-</style>
-
 <script>
   import Loader from '@/components/Loader'
   import gql from 'graphql-tag'

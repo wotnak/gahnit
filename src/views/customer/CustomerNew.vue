@@ -2,7 +2,7 @@
 <div>
   <h1>Nowy klient</h1>
   <h4>Informacje</h4>
-  <form v-on:submit.prevent="create">
+  <form @submit.prevent="create">
     <input
       auto-focus
       v-model="customer.name"
@@ -24,27 +24,10 @@
     <input v-model="customer.address.postCode" placeholder="Kod pocztowy" type="text" required />
     <input v-model="customer.address.postDepartment" placeholder="Poczta" type="text" />
 
-    <button v-bind:class="classObject" type="submit">Dodaj</button>
+    <button>Dodaj</button>
   </form>
 </div>
 </template>
-
-<style scoped lang="stylus">
-form
-  display: flex
-  flex-direction: column
-
-  input
-    max-width: 500px;
-    margin-bottom: 3px;
-
-button
-  margin-top: 10px;
-  max-width: 100px;
-
-h4
-  margin: 0
-</style>
 
 <script>
   import gql from 'graphql-tag'
@@ -76,18 +59,6 @@ h4
           alert(error)
           console.error(error)
         })
-      },
-    },
-
-    computed: {
-      classObject: function(){
-        return {
-          dim: this.customer.name && this.customer.nip
-                && this.customer.address.country
-                && this.customer.address.city
-                && this.customer.address.building
-                && this.customer.address.postCode
-        }
       }
     }
   }

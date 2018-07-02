@@ -35,23 +35,6 @@
   </div>
 </template>
 
-<style scoped lang="stylus">
-form
-  display: flex
-  flex-direction: column
-
-  input, select, option
-    max-width: 500px
-    margin-bottom: 3px
-
-button
-  margin-top: 10px
-  max-width: 100px
-
-h4
-  margin: 0
-</style>
-
 <script>
   import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
