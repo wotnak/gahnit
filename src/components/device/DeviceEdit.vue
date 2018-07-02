@@ -132,8 +132,8 @@ h4
             UDTNumber: this.editedDevice.UDTNumber,
             productionYear: this.editedDevice.productionYear,
             producent: this.editedDevice.producent,
-            type: {connect:{id: this.editedDevice.type.id}},
-            owner:{connect:{id: this.editedDevice.owner.id}}
+            type: this.editedDevice.type.id,
+            owner: this.editedDevice.owner.id
           }
         }
 
