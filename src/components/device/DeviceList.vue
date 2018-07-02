@@ -49,7 +49,7 @@
       columns: [
         { label: 'Id', field: 'id' },
         { label: 'Właściciel', field: 'owner.name' },
-        { label: 'Typ', fieldFn: (row) => { return row.preferedName ? row.preferedName : row.name } }
+        { label: 'Typ', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } }
       ],
       devices: {}
     }),
