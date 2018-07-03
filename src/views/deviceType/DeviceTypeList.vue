@@ -43,7 +43,8 @@
       columns: [
         { label: 'Nazwa', field: 'preferedName'},
         { label: 'Pełna nazwa', field: 'name'},
-        { label: 'Konserwacja', field: 'conservationEveryNDays', type: 'number', formatFn: (days) => { return `co ${days} dni` } }
+        { label: 'Konserwacja', field: 'conservationEveryNDays', type: 'number', formatFn: (days) => { return `co ${days} dni` } },
+        { label: 'UDT', field: 'udtEveryNDays', type: 'number', formatFn: (days) => { return `co ${days} dni` } }
       ],
       deviceTypes: {}
     }),
