@@ -1,5 +1,5 @@
 <template>
   <div class='container'>
-    <div>Page Not Found</div>
+    <div>Nic tu nie ma.</div>
   </div>
 </template>
