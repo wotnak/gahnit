@@ -1,0 +1,29 @@
+input AddActionInput {
+  service: AddConservationActionInput
+  protocol: AddUDTActionInput
+}
+
+input AddConservationActionInput {
+  date: String!
+  customer: ID!
+  device: ID!
+  elements: [ElementInput!]!
+  employee: String
+  start: String
+  end: String
+}
+
+input ElementInput {
+  name: String!
+  amount: Float
+  price: Float
+}
+
+input AddUDTActionInput {
+  date: String!
+  customer: ID!
+  device: ID!
+  inspector: String!
+  results: String!
+  notes: String
+}

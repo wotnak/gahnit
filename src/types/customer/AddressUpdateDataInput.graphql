@@ -1,0 +1,8 @@
+input AddressUpdateDataInput {
+  country: String
+  city: String
+  street: String
+  building: String
+  postCode: String
+  postDepartment: String
+}

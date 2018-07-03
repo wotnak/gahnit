@@ -1,0 +1,22 @@
+input ActionUpdateInput {
+  service: ConservationActionUpdateInput
+  protocol: InspectionActionUpdateInput
+}
+
+input ConservationActionUpdateInput {
+  date: String
+  device: ID
+  customer: ID
+  employee: String
+  start: String
+  end: String
+}
+
+input InspectionActionUpdateInput {
+  date: String
+  device: ID
+  customer: ID
+  inspector: String
+  results: String
+  notes: String
+}

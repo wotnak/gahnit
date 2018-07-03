@@ -1,0 +1,17 @@
+type Conservation implements Action {
+  id: ID!
+  type: String!
+  date: String!
+  description: String
+  elements: [Element!]!
+  employee: String
+  start: String
+  end: String
+}
+
+type Element {
+  id: ID!
+  name: String
+  amount: Float
+  price: Float
+}

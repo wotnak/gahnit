@@ -1,0 +1,25 @@
+type Mutation {
+  createDevice(
+    serialNumber: String!
+    UDTNumber: String!
+    productionYear: String!
+    producent: String!
+    type: ID!
+    owner: ID
+  ): Device!
+  updateDevice(id: ID!, data: DeviceUpdateInput!): Device!
+  deleteDevice(id: ID!): Device!
+
+  addAction(deviceID: ID!, data: AddActionInput!): Action!
+  removeAction(id: ID!): Action!
+  updateAction(id: ID!, data: ActionUpdateInput!): Action!
+
+  createCustomer(name: String!, nip: String!, address: AddressCreateInput!): Customer!
+  updateCustomer(id: ID!, name: String!, nip: String!, address: AddressUpdateDataInput!): Customer!
+  deleteCustomer(id: ID!): Customer!
+
+  createUser(username: String!, password: String!, displayName: String!): User!
+  updateUser(id: ID!, password: String, displayName: String): User!
+  deleteUser(id: ID!): User!
+  login(username: String!, password: String!): AuthPayload!
+}

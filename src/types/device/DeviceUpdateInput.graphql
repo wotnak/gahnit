@@ -1,0 +1,12 @@
+input DeviceUpdateInput {
+  serialNumber: String
+  UDTNumber: String
+  VINnumber: String
+  recordNumber: String
+  registrationNumber: String
+  productionYear: String
+  producent: String
+  capacity: String
+  type: ID
+  owner: ID
+}
