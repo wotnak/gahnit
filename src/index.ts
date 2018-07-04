@@ -2,7 +2,7 @@ import { GraphQLServer } from 'graphql-yoga'
 import { Prisma } from './generated/prisma'
 import * as glue from 'schemaglue'
 
-const { schema: typeDefs, resolver: resolvers } = glue('src/graphql')
+const { schema: typeDefs, resolver: resolvers } = glue('src/graphql', { typescript: true })
 console.log(typeDefs)
 console.log(JSON.stringify(resolvers))
 
