@@ -2,7 +2,7 @@ import  { getUserId } from '../../utils'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 
-export const resolvers = {
+export const resolver = {
   // Queries
   Query: {
     users(parent, args, ctx, info) {
