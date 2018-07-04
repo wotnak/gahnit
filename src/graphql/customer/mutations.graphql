@@ -1,0 +1,23 @@
+type Mutation {
+  createCustomer(name: String!, nip: String!, address: AddressCreateInput!): Customer!
+  updateCustomer(id: ID!, name: String!, nip: String!, address: AddressUpdateInput!): Customer!
+  deleteCustomer(id: ID!): Customer!
+}
+
+input AddressCreateInput {
+  country: String!
+  city: String!
+  street: String
+  building: String!
+  postCode: String!
+  postDepartment: String
+}
+
+input AddressUpdateInput {
+  country: String
+  city: String
+  street: String
+  building: String
+  postCode: String
+  postDepartment: String
+}

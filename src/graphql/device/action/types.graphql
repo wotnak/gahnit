@@ -1,3 +1,10 @@
+interface Action {
+  id: ID!
+  type: String!
+  date: String!
+  description: String
+}
+
 type Conservation implements Action {
   id: ID!
   type: String!
@@ -14,4 +21,14 @@ type Element {
   name: String
   amount: Float
   price: Float
+}
+
+type UDT implements Action {
+  id: ID!
+  type: String!
+  date: String!
+  description: String
+  inspector: String!
+  results: String!
+  notes: String
 }

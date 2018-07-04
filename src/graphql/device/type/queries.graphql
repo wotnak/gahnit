@@ -1,0 +1,4 @@
+type Query {
+  deviceTypes: [DeviceType!]!
+  deviceType(id: ID!): DeviceType!
+}

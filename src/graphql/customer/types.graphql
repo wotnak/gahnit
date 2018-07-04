@@ -1,3 +1,12 @@
+type Customer {
+  id: ID!
+  name: String!
+  nip: String!
+  regon: String
+  address: Address!
+  devices: [Device!]!
+}
+
 type Address {
   country: String!
   city: String!

@@ -1,0 +1,18 @@
+type Mutation {
+  createDeviceType(
+    name: String!
+    preferedName: String
+    conservationEveryNDays: Int
+    udtEveryNDays: Int
+  ): DeviceType!
+  updateDeviceType(id: ID!, data: DeviceTypeUpdateInput!): DeviceType!
+  deleteDeviceType(id: ID!): DeviceType!
+
+}
+
+input DeviceTypeUpdateInput {
+  name: String
+  preferedName: String
+  conservationEveryNDays: Int
+  udtEveryNDays: Int
+}

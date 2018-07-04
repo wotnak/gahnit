@@ -1,9 +1,10 @@
 import { GraphQLServer } from 'graphql-yoga'
-import { Prisma } from 'prisma-binding'
-import resolvers from './resolvers'
-import typeDefs from './types'
+import { Prisma } from './generated/prisma'
+import * as glue from 'schemaglue'
 
-
+const { schema: typeDefs, resolver: resolvers } = glue('src/graphql')
+console.log(typeDefs)
+console.log(JSON.stringify(resolvers))
 
 const server = new GraphQLServer({
   typeDefs,
@@ -11,10 +12,9 @@ const server = new GraphQLServer({
   context: req => ({
     ...req,
     db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql', // the Prisma DB schema
-      endpoint: process.env.PRISMA_ENDPOINT,    // the endpoint of the Prisma DB service (value is set in .env)
-      secret: process.env.PRISMA_SECRET,        // taken from database/prisma.yml (value is set in .env)
-      debug: true,                              // log all GraphQL queries & mutations
+      endpoint: process.env.PRISMA_ENDPOINT,
+      secret: process.env.PRISMA_SECRET,
+      debug: true
     }),
   }),
 })

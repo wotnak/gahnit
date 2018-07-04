@@ -1,0 +1,6 @@
+type Mutation {
+  createUser(username: String!, password: String!, displayName: String!): User!
+  updateUser(id: ID!, password: String, displayName: String): User!
+  deleteUser(id: ID!): User!
+  login(username: String!, password: String!): AuthPayload!
+}

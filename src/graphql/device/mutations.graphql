@@ -1,0 +1,25 @@
+type Mutation {
+  createDevice(
+    serialNumber: String!
+    UDTNumber: String!
+    productionYear: String!
+    producent: String!
+    type: ID!
+    owner: ID
+  ): Device!
+  updateDevice(id: ID!, data: DeviceUpdateInput!): Device!
+  deleteDevice(id: ID!): Device!
+}
+
+input DeviceUpdateInput {
+  serialNumber: String
+  UDTNumber: String
+  VINnumber: String
+  recordNumber: String
+  registrationNumber: String
+  productionYear: String
+  producent: String
+  capacity: String
+  type: ID
+  owner: ID
+}

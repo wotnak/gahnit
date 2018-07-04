@@ -1,6 +1,0 @@
-interface Action {
-  id: ID!
-  type: String!
-  date: String!
-  description: String
-}
