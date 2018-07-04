@@ -1,4 +1,4 @@
-export const resolvers = {
+export const resolver = {
   // Queries
   Query: {
     deviceTypes(parent, args, ctx, info) {
