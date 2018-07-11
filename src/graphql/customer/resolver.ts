@@ -1,54 +1,62 @@
+import * as sql from 'mssql'
+
 export const resolver = {
   // Queries
   Query: {
-    customers(parent, args, ctx, info) {
-      return ctx.db.query.customers({orderBy: 'createdAt_DESC'}, info)
+    customers: async (parent, args, ctx, info) => {
+      const result = await sql.query`SELECT
+                                        adr_IdObiektu AS id,
+                                        adr_NazwaPelna AS name,
+                                        adr_NIP AS nip,
+                                        adr_IdPanstwo AS country,
+                                        adr_Miejscowosc AS city,
+                                        adr_Ulica AS street,
+                                        adr_NrDomu AS building,
+                                        adr_NrLokalu AS apartment,
+                                        adr_Kod AS postCode,
+                                        adr_Poczta AS postDepartment
+                                      FROM adr__Ewid WHERE adr_TypAdresu=1`
+      const customers = result.recordset
+      customers.forEach(customer => {
+        customer.address = {
+          country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
+          city: customer.city,
+          street: customer.street,
+          building: customer.building,
+          apartment: customer.apartment,
+          postCode: customer.postCode,
+          postDepartment: customer.postDepartment
+        }
+      })
+      // TODO: devices
+      return customers
     },
-    customer(parent, { id }, ctx, info) {
-      return ctx.db.query.customer({ where: { id } }, info)
+    customer: async (parent, { id }, ctx, info) => {
+      const result = await sql.query`SELECT
+                                        adr_IdObiektu AS id,
+                                        adr_NazwaPelna AS name,
+                                        adr_NIP AS nip,
+                                        adr_IdPanstwo AS country,
+                                        adr_Miejscowosc AS city,
+                                        adr_Ulica AS street,
+                                        adr_NrDomu AS building,
+                                        adr_NrLokalu AS apartment,
+                                        adr_Kod AS postCode,
+                                        adr_Poczta AS postDepartment
+                                      FROM adr__Ewid WHERE adr_TypAdresu=1 AND adr_IdObiektu=${id}`
+      const customer = result.recordset[0]
+      customer.address = {
+        country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
+        city: customer.city,
+        street: customer.street,
+        building: customer.building,
+        apartment: customer.apartment,
+        postCode: customer.postCode,
+        postDepartment: customer.postDepartment
+      }
+      // TODO: devices
+      return customer
     }
   },
 
-  // Mutations
-  Mutation: {
-    async createCustomer(parent, { name, nip, address }, ctx, info) {
-      return ctx.db.mutation.createCustomer(
-        {
-          data: {
-            name,
-            nip,
-            address: {
-              create: {
-                country: address.country,
-                city: address.city,
-                street: address.street,
-                building: address.building,
-                postCode: address.postCode,
-                postDepartment: address.postDepartment
-              }
-            }
-          }
-        },
-        info
-      )
-    },
-    updateCustomer(parent, {id, name, nip, address}, ctx, info) {
-      return ctx.db.mutation.updateCustomer(
-        {
-          data: {
-            name,
-            nip,
-            address: {
-              update: address
-            }
-          },
-          where: { id }
-        },
-        info
-      )
-    },
-    deleteCustomer(parent, { id }, ctx, info) {
-      return ctx.db.mutation.deleteCustomer({ where: { id } })
-    }
-  }
 }
