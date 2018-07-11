@@ -1,5 +1,17 @@
 import * as sql from 'mssql'
 
+const normalizeCustomer = (customer) => {
+  customer.address = {
+    country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
+    city: customer.city,
+    street: customer.street,
+    building: customer.building,
+    apartment: customer.apartment,
+    postCode: customer.postCode,
+    postDepartment: customer.postDepartment
+  }
+}
+
 export const resolver = {
   // Queries
   Query: {
@@ -17,17 +29,7 @@ export const resolver = {
                                         adr_Poczta AS postDepartment
                                       FROM adr__Ewid WHERE adr_TypAdresu=1`
       const customers = result.recordset
-      customers.forEach(customer => {
-        customer.address = {
-          country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
-          city: customer.city,
-          street: customer.street,
-          building: customer.building,
-          apartment: customer.apartment,
-          postCode: customer.postCode,
-          postDepartment: customer.postDepartment
-        }
-      })
+      customers.forEach(customer => normalizeCustomer(customer))
       // TODO: devices
       return customers
     },
@@ -45,15 +47,7 @@ export const resolver = {
                                         adr_Poczta AS postDepartment
                                       FROM adr__Ewid WHERE adr_TypAdresu=1 AND adr_IdObiektu=${id}`
       const customer = result.recordset[0]
-      customer.address = {
-        country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
-        city: customer.city,
-        street: customer.street,
-        building: customer.building,
-        apartment: customer.apartment,
-        postCode: customer.postCode,
-        postDepartment: customer.postDepartment
-      }
+      normalizeCustomer(customer)
       // TODO: devices
       return customer
     }
