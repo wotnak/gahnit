@@ -2670,6 +2670,10 @@ nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
+nanoid@^1.0.7:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-1.1.0.tgz#b18e806e1cdbfdbe030374d5cf08a48cbc80b474"
+
 nanomatch@^1.2.9:
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.9.tgz#879f7150cb2dab7a471259066c104eee6e0fa7c2"
@@ -3466,9 +3470,9 @@ sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-"schemaglue@https://github.com/chrismllr/schemaglue.git":
-  version "2.0.2"
-  resolved "https://github.com/chrismllr/schemaglue.git#8d1c3af8f30ac5541fbe2aec047538f8e4925ad4"
+schemaglue@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/schemaglue/-/schemaglue-4.0.1.tgz#7fc9baf010039d17985c215591499d881b4cc5b0"
   dependencies:
     glob "^7.1.2"
     shortid "^2.2.8"
@@ -3581,8 +3585,10 @@ shell-quote@^1.6.1:
     jsonify "~0.0.0"
 
 shortid@^2.2.8:
-  version "2.2.8"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.8.tgz#033b117d6a2e975804f6f0969dbe7d3d0b355131"
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.12.tgz#8e9a95ffbc671fff8f09e985dbc7874102b0cfd2"
+  dependencies:
+    nanoid "^1.0.7"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"

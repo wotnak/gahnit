@@ -3,7 +3,7 @@ import * as glue from 'schemaglue'
 import * as sql from 'mssql'
 import * as mongoose from 'mongoose'
 
-const { schema: typeDefs, resolver: resolvers } = glue('src/graphql', { typescript: true })
+const { schema: typeDefs, resolver: resolvers } = glue('src/graphql', { mode: 'ts' })
 
 const server = new GraphQLServer({
   typeDefs,
