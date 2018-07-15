@@ -30,8 +30,8 @@
 
   // GraphQL query
   const DEVICES_QUERY = gql `
-    query DevicesQuery {
-      devices {
+    query DevicesQuery($type: ID!) {
+      devices(type: $type) {
         id
         type {
           id
@@ -54,19 +54,20 @@
     }
   `
 
-  // Component def
   export default {
     components: { Loader },
-    // Local state
     data: () => ({
       devices: {},
       deviceType: {}
     }),
-    // Apollo GraphQL
+
+    // query data
     apollo: {
       devices: {
         query: DEVICES_QUERY,
-        errorPolicy: 'all'
+        variables() {
+          return {type: this.$route.params.id}
+        }
       },
       deviceType: {
         query: TYPE_QUERY,
