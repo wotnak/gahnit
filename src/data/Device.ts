@@ -17,7 +17,7 @@ const deviceSchema = mongoose.Schema({
 
   capacity: String,
 
-  owners: String,
+  owner: String,
 
   actions: [String]
 

@@ -8,4 +8,4 @@ const deviceTypeSchema = mongoose.Schema({
 
 })
 
-export const Device = mongoose.model('DeviceType', deviceTypeSchema)
+export const DeviceType = mongoose.model('DeviceType', deviceTypeSchema)
