@@ -5,8 +5,8 @@
   </template>
 
   <template v-else>
-    <router-link :to="{ name: 'DeviceEdit', params: { id: device.id }}">Edytuj</router-link>
-    <a href="#" @click="deleteDevice(device.id)">Usun</a>
+    <router-link :to="{ name: 'DeviceEdit', params: { id: device.id }}"  tag="button">Edytuj</router-link>
+    <button @click="deleteDevice(device.id)">Usun</button>
     <h1>{{device.id}}</h1>
     <ul>
       <li>Właściciel: <router-link :to="{ name: 'CustomerDetails', params: { id: device.owner.id }}">{{ device.owner.name }}</router-link></li>
@@ -17,13 +17,34 @@
       <li>Typ: <router-link :to="{ name: 'DeviceTypeDetails', params: { id: device.type.id }}">{{ device.type.name }}</router-link></li>
     </ul>
     <h4>Nadchodzące terminy</h4>
-    <h4>Wykonane akcje</h4>
+    <ul>
+      <li v-for="term in getAproachingTerms(device.actions, device.type)">
+        {{ term.type }} - {{ term.nextDate }}
+      </li>
+    </ul>
+    <h4>
+      Wykonane akcje
+      <router-link :to="{ name: 'ActionNew', params: { id: device.id, type: 'conservation' }}"  tag="button">Nowa konserwacja</router-link>
+      <router-link :to="{ name: 'ActionNew', params: { id: device.id, type: 'udt' }}"  tag="button">Nowy odbiór UDT</router-link>
+    </h4>
+    <ul>
+      <li v-for="action in device.actions" v-bind:key="action.id">
+        {{action.date}} - {{ getActionName(action.type) }}
+      </li>
+      <li v-if="device.actions.length == 0">Nic tu nie ma.</li>
+    </ul>
   </template>
 </div>
 </template>
 <script>
   import Loader from '@/components/Loader'
+
+  import moment from 'moment'
+  import pl from 'moment/locale/pl'
+  moment.locale('pl')
+
   import gql from 'graphql-tag'
+
   const DEVICE_QUERY = gql`
     query DeviceQuery($id: ID!) {
       device(id: $id) {
@@ -35,10 +56,22 @@
         type {
           id
           name
+          conservationEveryNDays
+          udtEveryNDays
         }
         owner {
           name
           id
+        }
+        actions {
+          id
+          date
+          description
+          ... on Conservation {
+            employee
+            start
+            end
+          }
         }
       }
     }
@@ -69,6 +102,26 @@
     },
 
     methods: {
+      getAproachingTerms(actions, type) {
+        const now = moment()
+
+        const conservations = actions.filter((a) => { return a.type=="conservation" } ).sort( (a,b) => { return a.date > b. date } )
+        const udts = actions.filter((a) => { return a.type=="udt" } ).sort( (a,b) => { return a.date > b. date } )
+        const {conservationEveryNDays = 0, udtEveryNDays = 0} = type
+        const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
+        const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
+
+        return [
+          { type: "Konserwacja", nextDate: now.to(nextConservationDate) },
+          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate) }
+        ]
+
+      },
+      getActionName(type) {
+        if (type=="conservation") return "Konserwacja"
+        if (type=="udt") return "Odbiór UDT"
+        return "Serwis"
+      },
       deleteDevice(id) {
         this.$apollo.mutate({
           mutation: DELETE_MUTATION,
@@ -79,7 +132,7 @@
           console.error(error)
           alert(error)
         })
-      },
-    },
+      }
+    }
   }
 </script>
