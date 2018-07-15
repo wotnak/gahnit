@@ -14,7 +14,7 @@ const server = new GraphQLServer({
 })
 
 // connect to mongodb
-mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_SERVER}/${process.env.MONGODB_NAME}`, { useNewUrlParser: true })
+mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_SERVER}/${process.env.MONGODB_NAME}`, { useNewUrlParser: true, auth:{authdb:"admin"} })
 
 // connect to subiekt database
 sql.connect(`mssql://${process.env.SUBIEKT_DB_USER}:${process.env.SUBIEKT_DB_PASSWORD}@${process.env.SUBIEKT_DB_SERVER}/${process.env.SUBIEKT_DB_NAME}`)
