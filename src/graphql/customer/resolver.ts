@@ -28,7 +28,7 @@ export const resolver = {
                                         adr_NrLokalu AS apartment,
                                         adr_Kod AS postCode,
                                         adr_Poczta AS postDepartment
-                                      FROM adr__Ewid WHERE adr_TypAdresu=1`
+                                      FROM adr__Ewid WHERE adr_TypAdresu=1 ORDER BY name`
       const customers = result.recordset
       customers.forEach(async customer => {
         normalizeCustomer(customer)
