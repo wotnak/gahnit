@@ -1,15 +1,17 @@
 interface Action {
   id: ID!
-  type: String!
   date: String!
   description: String
+  device: Device!
+  customer: Customer!
 }
 
 type Conservation implements Action {
   id: ID!
-  type: String!
   date: String!
   description: String
+  device: Device!
+  customer: Customer!
   elements: [Element!]!
   employee: String
   start: String
@@ -25,9 +27,10 @@ type Element {
 
 type UDT implements Action {
   id: ID!
-  type: String!
   date: String!
   description: String
+  device: Device!
+  customer: Customer!
   inspector: String!
   results: String!
   notes: String
