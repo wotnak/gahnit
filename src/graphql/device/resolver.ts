@@ -1,4 +1,3 @@
-import mongoose from 'mongoose'
 import {Device} from '../../data/Device'
 
 export const resolver = {
