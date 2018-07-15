@@ -1,3 +1,6 @@
+import { Action } from '../../../data/Action'
+import { Device } from '../../../data/Device'
+
 export const resolver = {
   // Queries
   Query: {
@@ -6,66 +9,55 @@ export const resolver = {
 
   // Mutations
   Mutation: {
-    addAction(parent, {deviceID, data}, ctx, info) {
-      if (data.service) {
-        const { date, device, customer, employee, start, end, elements} = data.service
-        return ctx.db.mutation.createAction({
-          type: "service",
-          date,
-          employee,
-          start,
-          end,
-          device: { connect: { id: device } },
-          customer: { connect: { id: customer } },
-          elements: { create: elements }
-        }, info)
-      }
-      if (data.protocol) {
-        const { date, device, customer, inspector, results, notes} = data.protocol
-        return ctx.db.mutation.createAction({
-          type: "protocol",
-          date,
-          device: { connect: { id: device } },
-          customer: { connect: { id: customer } },
-          inspector,
-          results,
-          notes
-        }, info)
-      }
+    addAction: async (parent, {deviceId, data}, ctx, info) => {
+      const {conservation, udt} = data
+      const action = new Action({ ...conservation, ...udt })
+      const device = await Device.findById(deviceId)
+      action.customer = device.owner
+      action.device = device._id
+      await action.save()
+      device.actions.push(action._id)
+      await device.save()
+      return action
     },
-    updateAction(parent, {id, data}, ctx, info) {
-      if (data.service) {
-        const { date, device, customer, employee, start, end } = data.service
-        return ctx.db.mutation.createAction({
-          data: {
-            date,
-            employee,
-            start,
-            end,
-            device: { connect: { id: device } },
-            customer: { connect: { id: customer } }
-          },
-          where: { id }
-        }, info)
-      }
-      if (data.protocol) {
-        const { date, device, customer, inspector, results, notes} = data.protocol
-        return ctx.db.mutation.createAction({
-          data: {
-            date,
-            inspector,
-            results,
-            notes,
-            device: { connect: { id: device } },
-            customer: { connect: { id: customer } }
-          },
-          where: { id }
-        }, info)
-      }
+    updateAction: async (parent, {id, data}, ctx, info) => {
+      return {}
     },
-    removeAction(parent, { id }, ctx, info) {
-      return ctx.db.mutation.deleteAction({ where: { id } }, info)
+    removeAction: async (parent, { id }, ctx, info) => {
+      const action = await Action.findById(id)
+      await action.remove()
+      return action
+    }
+  },
+
+  Action: {
+    __resolveType(obj, context, info){
+      if(obj.inspector) return 'UDT'
+      if(obj.elements) return 'Conservation'
+      return null
     }
   }
 
 }
+
+const actionSchema = mongoose.Schema({
+  date: Date,
+  description: String,
+  device: String,
+  customer: String,
+
+  // Conservation
+  elements: [{
+    name: String,
+    amount: Number,
+    price: Number
+  }],
+  employee: String,
+  start: String,
+  end: String,
+
+  // UDT
+  inspector: String,
+  results: String,
+  notes: String
+})

@@ -1,60 +1,37 @@
+import mongoose from 'mongoose'
+import {Device} from '../../data/Device'
+
 export const resolver = {
   // Queries
   Query: {
-    devices(parent, { type }, ctx, info) {
+    devices: async (parent, { type }, ctx, info) => {
       if (type != undefined)
-        return ctx.db.query.devices({ where: { type: { id: type } } }, info)
-      return ctx.db.query.devices({}, info)
+        return await Device.find({type})
+      return await Device.find()
     },
-    device(parent, { id }, ctx, info) {
-      return ctx.db.query.device({ where: { id } }, info)
+    device: async (parent, { id }, ctx, info) => {
+      return await Device.findById(id)
     },
   },
 
   // Mutations
   Mutation: {
-    createDevice(parent, {
-      serialNumber,
-      UDTNumber,
-      productionYear,
-      producent,
-      type,
-      owner
-    }, ctx, info) {
-      return ctx.db.mutation.createDevice(
-        {
-          data: {
-            serialNumber,
-            UDTNumber,
-            productionYear,
-            producent,
-            type:  { connect: {id: type } },
-            owner: { connect: {id: owner} }
-          }
-        },
-        info
-      )
+    createDevice: async (parent, args, ctx, info) => {
+      const device = new Device(args)
+      await device.save()
+      return device
     },
-    updateDevice(parent, {id, data}, ctx, info) {
-      const {serialNumber, UDTNumber, productionYear, producent, type, owner} = data
-      return ctx.db.mutation.updateDevice(
-        {
-          data: {
-            serialNumber,
-            UDTNumber,
-            productionYear,
-            producent,
-            type:  { connect: {id: type } },
-            owner: { connect: {id: owner } }
-          },
-          where: { id }
-        },
-        info
-      )
+    updateDevice: async (parent, {id, data}, ctx, info) => {
+      const device = await Device.findById(id)
+      device.set(data)
+      await device.save()
+      return device
     },
-    deleteDevice(parent, { id }, ctx, info) {
-      return ctx.db.mutation.deleteDevice({ where: { id } })
-    },
+    deleteDevice: async (parent, { id }, ctx, info) => {
+      const device = await Device.findById(id)
+      await device.remove()
+      return device
+    }
   }
 
 }

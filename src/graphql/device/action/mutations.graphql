@@ -1,19 +1,17 @@
 type Mutation {
-  addAction(deviceID: ID!, data: AddActionInput!): Action!
+  addAction(deviceId: ID!, data: AddActionInput!): Action!
   removeAction(id: ID!): Action!
   updateAction(id: ID!, data: ActionUpdateInput!): Action!
 }
 
 # AddActionInput
 input AddActionInput {
-  service: AddConservationActionInput
-  protocol: AddUDTActionInput
+  conservation: AddConservationActionInput
+  udt: AddUDTActionInput
 }
 
 input AddConservationActionInput {
   date: String!
-  customer: ID!
-  device: ID!
   elements: [ElementInput!]!
   employee: String
   start: String
@@ -28,8 +26,6 @@ input ElementInput {
 
 input AddUDTActionInput {
   date: String!
-  customer: ID!
-  device: ID!
   inspector: String!
   results: String!
   notes: String
@@ -38,7 +34,7 @@ input AddUDTActionInput {
 # ActionUpdateInput
 input ActionUpdateInput {
   service: ConservationActionUpdateInput
-  protocol: InspectionActionUpdateInput
+  protocol: UDTActionUpdateInput
 }
 
 input ConservationActionUpdateInput {
@@ -50,7 +46,7 @@ input ConservationActionUpdateInput {
   end: String
 }
 
-input InspectionActionUpdateInput {
+input UDTActionUpdateInput {
   date: String
   device: ID
   customer: ID
