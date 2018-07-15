@@ -5,9 +5,7 @@ import NotFoundPage from './views/NotFoundPage'
 import HomePage from './views/HomePage'
 
 import CustomerList from './views/customer/CustomerList'
-import CustomerNew from './views/customer/CustomerNew'
 import CustomerDetails from './views/customer/CustomerDetails'
-import CustomerEdit from './views/customer/CustomerEdit'
 
 import DeviceList from './views/device/DeviceList'
 import DeviceNew from './views/device/DeviceNew'
@@ -46,22 +44,10 @@ export default new Router({
       component: CustomerList,
     },
     {
-      path: '/customers/new',
-      name: 'CustomerNew',
-      secure: true,
-      component: CustomerNew,
-    },
-    {
       path: '/customer/:id',
       name: 'CustomerDetails',
       secure: true,
       component: CustomerDetails
-    },
-    {
-      path: '/customer/:id/edit',
-      name: 'CustomerEdit',
-      secure: true,
-      component: CustomerEdit,
     },
 
     // Devices

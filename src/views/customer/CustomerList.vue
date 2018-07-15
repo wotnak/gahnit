@@ -5,7 +5,6 @@
   </template>
 
   <template v-else>
-    <router-link :to="{ name: 'CustomerNew'}">Dodaj nowego</router-link>
     <h1>Klienci</h1>
 
     <VueGoodTable

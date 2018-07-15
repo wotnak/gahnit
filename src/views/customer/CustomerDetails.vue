@@ -5,8 +5,6 @@
   </template>
 
   <template v-else>
-    <router-link :to="{ name: 'CustomerEdit', params: { id: customer.id }}">Edytuj</router-link>
-    <a href="#" @click="deleteCustomer(customer.id)">Usun</a>
     <h1>{{customer.name}}</h1>
     <ul>
       <li>nip: {{customer.nip}}</li>
