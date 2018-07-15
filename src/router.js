@@ -12,6 +12,8 @@ import DeviceNew from './views/device/DeviceNew'
 import DeviceDetails from './views/device/DeviceDetails'
 import DeviceEdit from './views/device/DeviceEdit'
 
+import ActionNew from './views/device/ActionNew'
+
 import DeviceTypeList from './views/deviceType/DeviceTypeList'
 import DeviceTypeNew from './views/deviceType/DeviceTypeNew'
 import DeviceTypeDetails from './views/deviceType/DeviceTypeDetails'
@@ -68,6 +70,12 @@ export default new Router({
       name: 'DeviceDetails',
       secure: true,
       component: DeviceDetails,
+    },
+    {
+      path: '/device/:id/newAction',
+      name: 'ActionNew',
+      secure: true,
+      component: ActionNew,
     },
     {
       path: '/device/:id/edit',
