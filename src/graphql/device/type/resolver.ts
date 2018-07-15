@@ -19,7 +19,7 @@ export const resolver = {
       await newType.save()
       return newType
     },
-    updateeDeviceType: async (parent, args, ctx, info) => {
+    updateDeviceType: async (parent, args, ctx, info) => {
       return {}
     },
     deleteDeviceType: async (parent, {id}, ctx, info) => {
