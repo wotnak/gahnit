@@ -1,4 +1,5 @@
 import * as sql from 'mssql'
+import {Device} from '../../data/Device'
 
 const normalizeCustomer = (customer) => {
   customer.address = {
@@ -29,8 +30,10 @@ export const resolver = {
                                         adr_Poczta AS postDepartment
                                       FROM adr__Ewid WHERE adr_TypAdresu=1`
       const customers = result.recordset
-      customers.forEach(customer => normalizeCustomer(customer))
-      // TODO: devices
+      customers.forEach(async customer => {
+        normalizeCustomer(customer)
+        customer.devices = await Device.find({owner: customer.id})
+      })
       return customers
     },
     customer: async (parent, { id }, ctx, info) => {
@@ -48,7 +51,7 @@ export const resolver = {
                                       FROM adr__Ewid WHERE adr_TypAdresu=1 AND adr_IdObiektu=${id}`
       const customer = result.recordset[0]
       normalizeCustomer(customer)
-      // TODO: devices
+      customer.devices = await Device.find({owner: customer.id})
       return customer
     }
   },
