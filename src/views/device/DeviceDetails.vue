@@ -117,7 +117,7 @@
         console.log(nextUDTDate)
         return [
           { type: "Konserwacja", nextDate: now.to(nextConservationDate), exact: nextConservationDate.format("DD/M/YYYY") },
-          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate), exact: nextConservationDate.format("DD/M/YYYY") }
+          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate), exact: nextUDTDate.format("DD/M/YYYY") }
         ]
 
       },
