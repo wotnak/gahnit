@@ -1,17 +1,7 @@
 import * as sql from 'mssql'
 import {Device} from '../../data/Device'
 
-const normalizeCustomer = (customer) => {
-  customer.address = {
-    country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
-    city: customer.city,
-    street: customer.street,
-    building: customer.building,
-    apartment: customer.apartment,
-    postCode: customer.postCode,
-    postDepartment: customer.postDepartment
-  }
-}
+import { normalizeCustomer } from '../../utils'
 
 export const resolver = {
   // Queries

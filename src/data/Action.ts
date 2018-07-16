@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose'
+import * as mongooseLeanId from 'mongoose-lean-id'
 
 const actionSchema = mongoose.Schema({
   date: Date,
@@ -21,5 +22,7 @@ const actionSchema = mongoose.Schema({
   results: String,
   notes: String
 })
+
+actionSchema.plugin(mongooseLeanId)
 
 export const Action = mongoose.model('Action', actionSchema)

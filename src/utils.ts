@@ -16,3 +16,15 @@ export class AuthError extends Error {
     super('Not authorized')
   }
 }
+
+export const normalizeCustomer = (customer) => {
+  customer.address = {
+    country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
+    city: customer.city,
+    street: customer.street,
+    building: customer.building,
+    apartment: customer.apartment,
+    postCode: customer.postCode,
+    postDepartment: customer.postDepartment
+  }
+}

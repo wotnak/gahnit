@@ -1,10 +1,8 @@
 import * as mongoose from 'mongoose'
+import * as mongooseLeanId from 'mongoose-lean-id'
 
 const deviceSchema = mongoose.Schema({
-  type: {
-    id: String,
-    name: String
-  },
+  type: String,
 
   serialNumber: String,
   UDTNumber: String,
@@ -22,5 +20,7 @@ const deviceSchema = mongoose.Schema({
   actions: [String]
 
 })
+ 
+deviceSchema.plugin(mongooseLeanId)
 
 export const Device = mongoose.model('Device', deviceSchema)

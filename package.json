@@ -12,6 +12,7 @@
     "graphql-yoga": "1.14.10",
     "jsonwebtoken": "8.3.0",
     "mongoose": "^5.2.2",
+    "mongoose-lean-id": "^0.1.0",
     "mssql": "^4.1.0",
     "schemaglue": "^4.0.1"
   },
