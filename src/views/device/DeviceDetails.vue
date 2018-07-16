@@ -14,7 +14,8 @@
       <li>Numer UDT: {{device.UDTNumber}}</li>
       <li>Rok produkcji: {{device.productionYear}}</li>
       <li>Producent: {{device.producent}}</li>
-      <li>Typ: <router-link :to="{ name: 'DeviceTypeDetails', params: { id: device.type.id }}">{{ device.type.name }}</router-link></li>
+      <li>Typ: {{device.producentNumber}}</li>
+      <li>Rodzaj: <router-link :to="{ name: 'DeviceTypeDetails', params: { id: device.type.id }}">{{ device.type.name }}</router-link></li>
     </ul>
     <h4>Nadchodzące terminy</h4>
     <ul>
@@ -53,6 +54,7 @@
         UDTNumber
         productionYear
         producent
+        producentNumber
         type {
           id
           name
