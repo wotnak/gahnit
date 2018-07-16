@@ -26,6 +26,10 @@
   import { VueGoodTable } from 'vue-good-table'
   import 'vue-good-table/dist/vue-good-table.css'
 
+  import moment from 'moment'
+  import pl from 'moment/locale/pl'
+  moment.locale('pl')
+
   const DEVICES_QUERY = gql `
     query DevicesQuery {
       devices {
@@ -39,6 +43,8 @@
           id
           name
         }
+        nextUDT
+        nextConservation
       }
     }
   `
@@ -49,7 +55,9 @@
       columns: [
         { label: 'Id', field: 'id' },
         { label: 'Właściciel', field: 'owner.name' },
-        { label: 'Typ', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } }
+        { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
+        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
+        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
       ],
       devices: []
     }),
