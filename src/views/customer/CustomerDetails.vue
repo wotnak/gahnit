@@ -20,17 +20,26 @@
       </li>
     </ul>
     <h4>Urządzenia</h4>
-    <ul>
-      <li v-for="device in customer.devices" :key="device.id">
-        <router-link :to="{ name: 'DeviceDetails', params: { id: device.id }}">{{ device.id }}</router-link>
-      </li>
-    </ul>
+    <VueGoodTable
+      :columns="columns"
+      :rows="customer.devices"
+      :lineNumbers="true"
+      @on-row-click="onRowClick"
+    />
   </template>
 </div>
 </template>
 <script>
   import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+
+  import moment from 'moment'
+  import pl from 'moment/locale/pl'
+  moment.locale('pl')
+
   import gql from 'graphql-tag'
+
   const CUSTOMER_QUERY = gql`
     query CustomerQuery($id: ID!) {
       customer(id: $id) {
@@ -47,6 +56,11 @@
         }
         devices {
           id
+          UDTNumber
+          registrationNumber
+          producentNumber
+          nextUDT
+          nextConservation
         }
       }
     }
@@ -59,9 +73,16 @@
       }
     `
   export default {
-    components: { Loader },
+    components: { Loader, VueGoodTable },
     data() {
       return {
+        columns: [
+          { label: 'Numer UDT', field: 'UDTNumber'},
+          { label: 'Numer rejestracyjny', field: 'registrationNumber'},
+          { label: 'Typ', field: 'producentNumber'},
+          { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
+          { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
+        ],
         customer: {},
         id: this.$route.params.id
       }
@@ -77,6 +98,12 @@
     },
 
     methods: {
+      getTerm(date) {
+        return moment.now().to(moment(date))
+      },
+      onRowClick({ row }) {
+        this.$router.push({ name: 'DeviceDetails', params: { id: row.id }})
+      },
       deleteCustomer(id) {
         this.$apollo.mutate({
           mutation: DELETE_MUTATION,
