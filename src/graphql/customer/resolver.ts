@@ -11,7 +11,7 @@ export const resolver = {
     customers: async (parent, args, ctx, info) => {
       const result = await sql.query`SELECT
                                         adr_IdObiektu AS id,
-                                        adr_NazwaPelna AS name,
+                                        adr_Symbol AS name,
                                         adr_NIP AS nip,
                                         adr_IdPanstwo AS country,
                                         adr_Miejscowosc AS city,
@@ -45,7 +45,7 @@ export const resolver = {
     customer: async (parent, { id }, ctx, info) => {
       const result = await sql.query`SELECT
                                         adr_IdObiektu AS id,
-                                        adr_NazwaPelna AS name,
+                                        adr_Symbol AS name,
                                         adr_NIP AS nip,
                                         adr_IdPanstwo AS country,
                                         adr_Miejscowosc AS city,
