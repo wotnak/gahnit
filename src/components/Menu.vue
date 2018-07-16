@@ -3,7 +3,7 @@
     <router-link class="menu-item" to="/">Strona główna</router-link>
     <router-link class="menu-item" to="/customers">Klienci</router-link>
     <router-link class="menu-item" to="/devices">Urządzenia</router-link>
-    <router-link class="menu-item" to="/devices/types">Typy urządzeń</router-link>
+    <router-link class="menu-item" to="/devices/types">Rodzaje</router-link>
     <router-link class="menu-item" to="/users">Użytkownicy</router-link>
   </nav>
 </template>

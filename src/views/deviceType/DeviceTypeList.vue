@@ -6,7 +6,7 @@
 
     <template v-else>
       <router-link :to="{ name: 'DeviceTypeNew'}">Dodaj nowy</router-link>
-      <h1>Typy urządzeń</h1>
+      <h1>Rodzaje urządzeń</h1>
 
       <VueGoodTable
         :columns="columns"

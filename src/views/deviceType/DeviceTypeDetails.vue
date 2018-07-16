@@ -5,7 +5,7 @@
   </template>
 
   <template v-else>
-    <h1>Urządzenia typu {{ deviceType.preferedName ? deviceType.preferedName : deviceType.name }}</h1>
+    <h1>Urządzenia rodzaju {{ deviceType.preferedName ? deviceType.preferedName : deviceType.name }}</h1>
     <table>
       <tr>
         <th>Id</th>

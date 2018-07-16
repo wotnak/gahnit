@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>Nowy typ urządzeń</h1>
+  <h1>Nowy rodzaj urządzeń</h1>
   <form @submit.prevent="create">
     <label for="name">Pełna nazwa</label>
     <input id="name" auto-focus v-model="name" placeholder="Skomplikowany podnośny dźwig" type="text" required />
