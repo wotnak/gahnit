@@ -36,10 +36,6 @@
           <input id="date" type="date" v-model="udt.date" required />
           <label for="inspector">Inspektor</label>
           <input id="inspector" type="text" v-model="udt.inspector" required />
-          <label for="results">Wynik</label>
-          <textarea id="results" v-model="udt.results" required />
-          <label for="notes">Notatki</label>
-          <textarea id="notes" v-model="udt.notes" required />
 
           <button>Zapisz</button>
         </form>
