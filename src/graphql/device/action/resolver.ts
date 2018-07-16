@@ -12,13 +12,16 @@ export const resolver = {
     addAction: async (parent, {deviceId, data}, ctx, info) => {
       const {conservation, udt} = data
       const newAction = new Action({ ...conservation, ...udt })
+      if (conservation) newAction.type = "conservation"
+      else if (udt) newAction.type = "udt"
+      else newAction.type = "unknown"
+
       const device = await Device.findById(deviceId)
       newAction.customer = device.owner
       newAction.device = device._id
       const action = await newAction.save()
       const aa = action.toObject()
       aa.id = aa._id
-      console.log(aa)
       device.actions.push(action._id)
       await device.save()
       return aa
@@ -27,8 +30,10 @@ export const resolver = {
       return {}
     },
     removeAction: async (parent, { id }, ctx, info) => {
-      const action = await Action.findById(id).lean()
+      const action = await Action.findById(id)
       await action.remove()
+      const normAction = action.toObject()
+      normAction.id = action._id
       return action
     }
   },

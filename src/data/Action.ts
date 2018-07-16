@@ -6,6 +6,7 @@ const actionSchema = mongoose.Schema({
   description: String,
   device: String,
   customer: String,
+  type: String,
 
   // Conservation
   elements: [{

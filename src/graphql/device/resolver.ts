@@ -2,6 +2,7 @@ import {Device} from '../../data/Device'
 import {DeviceType} from '../../data/DeviceType'
 import {Action} from '../../data/Action'
 import {resolver as Customer} from '../customer/resolver'
+import { nextTerms } from '../../utils'
 
 export const resolver = {
   // Queries
@@ -14,7 +15,10 @@ export const resolver = {
         const owner = await Customer.Query.customer({}, { id: device.owner }, {}, {})
         device.owner = owner
         const actions = await Action.find({device: device.id}).lean()
-        device.actions = actions 
+        device.actions = actions
+        const terms = nextTerms(actions, deviceType.conservationEveryNDays, deviceType.udtEveryNDays)
+        device.nextUDT = terms.udt
+        device.nextConservation = terms.conservation
       }))
       return devices
     },
@@ -25,7 +29,10 @@ export const resolver = {
       const owner = await Customer.Query.customer({}, { id: device.owner }, {}, {})
       device.owner = owner
       const actions = await Action.find({device: device.id}).lean()
-      device.actions = actions 
+      device.actions = actions
+      const terms = nextTerms(actions, type.conservationEveryNDays, type.udtEveryNDays)
+      device.nextUDT = terms.udt
+      device.nextConservation = terms.conservation
       return device
     },
   },
@@ -46,9 +53,11 @@ export const resolver = {
       return device
     },
     deleteDevice: async (parent, { id }, ctx, info) => {
-      const device = await Device.findById(id).lean()
+      const device = await Device.findById(id)
       await device.remove()
-      return device
+      const normDevice = device.toObject()
+      normDevice.id = device._id
+      return normDevice
     }
   }
 
