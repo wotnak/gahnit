@@ -6,12 +6,11 @@ const deviceSchema = mongoose.Schema({
 
   serialNumber: String,
   UDTNumber: String,
-  VINnumber: String,
-  recordNumber: String,
   registrationNumber: String,
 
   productionYear: String,
   producent: String,
+  producentNumber: String,
 
   capacity: String,
 

@@ -19,9 +19,7 @@ const actionSchema = mongoose.Schema({
   end: String,
 
   // UDT
-  inspector: String,
-  results: String,
-  notes: String
+  inspector: String
 })
 
 actionSchema.plugin(mongooseLeanId)

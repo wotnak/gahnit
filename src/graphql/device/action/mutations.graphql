@@ -27,8 +27,6 @@ input ElementInput {
 input AddUDTActionInput {
   date: String!
   inspector: String!
-  results: String!
-  notes: String
 }
 
 # ActionUpdateInput
@@ -51,6 +49,4 @@ input UDTActionUpdateInput {
   device: ID
   customer: ID
   inspector: String
-  results: String
-  notes: String
 }

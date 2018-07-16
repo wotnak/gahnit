@@ -32,6 +32,4 @@ type UDT implements Action {
   device: Device!
   customer: Customer!
   inspector: String!
-  results: String!
-  notes: String
 }

@@ -2,14 +2,13 @@ type Device {
   id: ID!
   type: DeviceType!
 
-  serialNumber: String!
-  UDTNumber: String!
-  VINnumber: String
-  recordNumber: String
+  serialNumber: String
+  UDTNumber: String
   registrationNumber: String
 
-  productionYear: String!
-  producent: String!
+  productionYear: String
+  producent: String
+  producentNumber: String
 
   capacity: String
 
