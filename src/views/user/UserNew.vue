@@ -1,41 +1,25 @@
 <template>
   <div>
-    <h1>Nowy klient</h1>
-    <h4>Informacje</h4>
-    <form v-on:submit.prevent="create">
-      <input
-        auto-focus
-        v-model="name"
-        placeholder="Nazwa"
-        type="text"
-        value={name}
-        required
-      />
-      <input
-        v-model="nip"
-        placeholder="NIP"
-        type="text"
-        value={nip}
-        required
-      />
-      <h4>Adres</h4>
-      <input v-model="address.country" placeholder="Kraj" type="text" value={address.country} required />
-      <input v-model="address.city" placeholder="Miejscowość" type="text" value={address.city} required />
-      <input v-model="address.street" placeholder="Ulica" type="text" value={address.street} />
-      <input v-model="address.building" placeholder="Budynek" type="text" value={address.building} required />
-      <input v-model="address.postCode" placeholder="Kod pocztowy" type="text" value={address.postCode} required />
-      <input v-model="address.postDepartment" placeholder="Poczta" type="text" value={address.postDepartment} />
+    <h1>Nowy użytkownik</h1>
+    <form @submit.prevent="create">
 
-      <button v-bind:class="classObject" type="submit">Dodaj</button>
+      <label for="username">Login</label>
+      <input id="username" v-model="username" placeholder="imienazwisko" type="text" required />
+      <label for="displayName">Nazwa</label>
+      <input id="displayName" v-model="displayName" placeholder="Imię Nazwisko" type="text" required />
+      <label for="password">Hasło</label>
+      <input id="password" v-model="password" placeholder="********" type="password" />
+
+      <button>Dodaj</button>
     </form>
   </div>
 </template>
 
 <script>
   import gql from 'graphql-tag'
-  const CREATE_CUSTOMER = gql `
-    mutation CreateCustomerMutation($name: String!, $nip: String!, $address: AddressCreateInput!) {
-      createCustomer(name: $name, nip: $nip, address: $address) {
+  const CREATE_USER = gql `
+    mutation CreateUserMutation($username: String!, $displayName: String!, $password: String!) {
+      createUser(username: $username, displayName: $displayName, password: $password) {
         id
       }
     }
@@ -43,75 +27,28 @@
 
   export default {
     data: () => ({
-      name: '',
-      nip: '',
-      // address
-      address: {
-        country: '',
-        city: '',
-        street: '',
-        building: '',
-        postCode: '',
-        postDepartment: '',
-      }
-
+      username: '',
+      displayName: '',
+      password: ''
     }),
 
-    // Attribute
     methods: {
       create() {
-        const name = this.name
-        const nip = this.nip
-        const address = this.address
-
-        this.name = ''
-        this.nip = ''
-        this.address = {
-          country: '',
-          city: '',
-          street: '',
-          building: '',
-          postCode: '',
-          postDepartment: '',
-        }
-
-        // Mutation
         this.$apollo.mutate({
-          mutation: CREATE_CUSTOMER,
+          mutation: CREATE_USER,
           variables: {
-            name,
-            nip,
-            address
+            username: this.username,
+            displayName: this.displayName,
+            password: this.password
           },
         }).then((data) => {
-          this.$router.push({ path: `/customers`})
+          this.$router.push({ name: 'UserList'})
         }).catch((error) => {
           // Error
           alert(`Error from ${error}`)
           console.error(error)
         })
       },
-    },
-
-    computed: {
-      canPost: function () {
-        return {
-          disabled: !this.text && !this.name
-                    && !this.address.country
-                    && !this.address.city
-                    && !this.address.building
-                    && !this.address.postCode
-        }
-      },
-      classObject: function(){
-        return {
-          dim:  this.text && this.name
-                && this.address.country
-                && this.address.city
-                && this.address.building
-                && this.address.postCode
-        }
-      }
     }
   }
 </script>
