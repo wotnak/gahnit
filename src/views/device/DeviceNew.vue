@@ -24,6 +24,9 @@
         <label for="producentNumber">Typ</label>
         <input id="producentNumber" v-model="producentNumber" placeholder="Typ" type="text" />
 
+        <label for="capacity">Udźwig</label>
+        <input id="capacity" v-model="capacity" placeholder="Udźwig" type="text" />
+
         <label for="type">Rodzaj</label>
         <select id="type" v-model="type">
           <option v-for="deviceType in deviceTypes" :key="deviceType.id" :value="deviceType.id">{{deviceType.preferedName ? deviceType.preferedName : deviceType.name}}</option>
@@ -44,8 +47,26 @@
   import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
   const CREATE_DEVICE = gql `
-    mutation CreateDeviceMutation($serialNumber: String, $UDTNumber: String, $productionYear: String, $producent: String, $type: ID!, $owner: ID!, $registrationNumber: String, $producentNumber: String) {
-      createDevice(serialNumber: $serialNumber, UDTNumber: $UDTNumber, productionYear: $productionYear, producent: $producent, type: $type, owner: $owner, registrationNumber: $registrationNumber, producentNumber: $producentNumber) {
+    mutation CreateDeviceMutation(
+      $serialNumber: String,
+      $UDTNumber: String,
+      $productionYear: String,
+      $producent: String,
+      $type: ID!,
+      $owner: ID!,
+      $registrationNumber: String,
+      $producentNumber: String,
+      $capacity: String) {
+      createDevice(
+        serialNumber: $serialNumber,
+        UDTNumber: $UDTNumber,
+        productionYear: $productionYear,
+        producent: $producent,
+        type: $type,
+        owner: $owner,
+        registrationNumber: $registrationNumber,
+        producentNumber: $producentNumber,
+        capacity: $capacity) {
         id
       }
     }
@@ -81,7 +102,8 @@
       type: '',
       owner: '',
       deviceTypes: {},
-      customers: {}
+      customers: {},
+      capacity: ''
     }),
 
     apollo: {
@@ -96,6 +118,8 @@
             registrationNumber: this.registrationNumber,
             productionYear: this.productionYear,
             producent: this.producent,
+            producentNumber: this.producentNumber,
+            capacity: this.capacity,
             type: this.type,
             owner: this.owner
         }
