@@ -13,7 +13,7 @@
         <input id="serialNumber" v-model="serialNumber" placeholder="Numer seryjny" type="text" />
 
         <label for="registrationNumber">Numer rejestracyjny</label>
-        <input id="registrationNumber" v-model="registrationNumber" placeholder="Numer seryjny" type="text" />
+        <input id="registrationNumber" v-model="registrationNumber" placeholder="Numer rejestracyjny" type="text" />
 
         <label for="productionYear">Rok produkcji</label>
         <input id="productionYear" v-model="productionYear" placeholder="Rok produkcji" type="text" />
