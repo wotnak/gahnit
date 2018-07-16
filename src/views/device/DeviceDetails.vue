@@ -111,10 +111,8 @@
         const conservations = actions.filter((a) => { return a.__typename=="Conservation" } ).sort( (a,b) => { return a.date > b. date } )
         const udts = actions.filter((a) => { return a.__typename=="UDT" } ).sort( (a,b) => { return a.date > b. date } )
         const {conservationEveryNDays = 0, udtEveryNDays = 0} = type
-        console.log(udts)
         const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
         const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
-        console.log(nextUDTDate)
         return [
           { type: "Konserwacja", nextDate: now.to(nextConservationDate), exact: nextConservationDate.format("DD/M/YYYY") },
           { type: "Odbiór UDT", nextDate: now.to(nextUDTDate), exact: nextUDTDate.format("DD/M/YYYY") }
