@@ -6,7 +6,7 @@
     <template v-else>
       <h1>Nowe urządzenie</h1>
       <h4>Informacje</h4>
-      <form v-on:submit.prevent="create">
+      <form @submit.prevent="create">
         <label for="serialNumber">Numer seryjny</label>
         <input id="serialNumber" auto-focus v-model="serialNumber" placeholder="Numer seryjny" type="text" required />
 
@@ -29,7 +29,7 @@
           <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.name}}</option>
         </select>
 
-        <button v-bind:class="classObject" type="submit">Dodaj</button>
+        <button>Dodaj</button>
       </form>
     </template>
   </div>
@@ -103,19 +103,6 @@
           alert(error)
           console.error(error)
         })
-      },
-    },
-
-    computed: {
-      classObject: function(){
-        return {
-          dim:    this.serialNumber
-                & this.UDTNumber
-                & this.productionYear
-                & this.producent
-                & this.type
-                & this.owner
-        }
       }
     }
   }
