@@ -12,17 +12,17 @@ input AddActionInput {
 
 input AddConservationActionInput {
   date: String!
-  elements: [ElementInput!]!
-  employee: String
-  start: String
-  end: String
+  # elements: [ElementInput!]!
+  # employee: String
+  # start: String
+  # end: String
 }
 
-input ElementInput {
-  name: String!
-  amount: Float
-  price: Float
-}
+# input ElementInput {
+#   name: String!
+#   amount: Float
+#   price: Float
+# }
 
 input AddUDTActionInput {
   date: String!
