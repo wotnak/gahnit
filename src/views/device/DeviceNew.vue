@@ -5,27 +5,29 @@
     </template>
     <template v-else>
       <h1>Nowe urządzenie</h1>
-      <h4>Informacje</h4>
       <form @submit.prevent="create">
-        <label for="serialNumber">Numer seryjny</label>
-        <input id="serialNumber" auto-focus v-model="serialNumber" placeholder="Numer seryjny" type="text" required />
-
         <label for="UDTNumber">Numer UDT</label>
-        <input id="UDTNumber" v-model="UDTNumber" placeholder="Numer UDT" type="text" required />
+        <input id="UDTNumber" v-model="UDTNumber" placeholder="Numer UDT" type="text" auto-focus />
+
+        <label for="serialNumber">Numer seryjny</label>
+        <input id="serialNumber" v-model="serialNumber" placeholder="Numer seryjny" type="text" />
 
         <label for="productionYear">Rok produkcji</label>
-        <input id="productionYear" v-model="productionYear" placeholder="Rok produkcji" type="text" required />
+        <input id="productionYear" v-model="productionYear" placeholder="Rok produkcji" type="text" />
 
         <label for="producent">Producent</label>
-        <input id="producent" v-model="producent" placeholder="Producent" type="text" required />
+        <input id="producent" v-model="producent" placeholder="Producent" type="text" />
 
-        <label for="type">Typ</label>
-        <select id="type" v-model="type" required>
+        <label for="producentNumber">Typ</label>
+        <input id="producentNumber" v-model="producentNumber" placeholder="Typ" type="text" />
+
+        <label for="type">Rodzaj</label>
+        <select id="type" v-model="type">
           <option v-for="deviceType in deviceTypes" :key="deviceType.id" :value="deviceType.id">{{deviceType.preferedName ? deviceType.preferedName : deviceType.name}}</option>
         </select>
 
         <label for="owner">Właściciel</label>
-        <select id="owner" v-model="owner" required>
+        <select id="owner" v-model="owner">
           <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.name}}</option>
         </select>
 
