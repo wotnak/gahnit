@@ -51,7 +51,7 @@
         { label: 'Właściciel', field: 'owner.name' },
         { label: 'Typ', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } }
       ],
-      devices: {}
+      devices: []
     }),
 
     methods: {
