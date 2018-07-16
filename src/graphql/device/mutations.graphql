@@ -6,8 +6,9 @@ type Mutation {
     registrationNumber: String
     productionYear: String
     producent: String
+    capacity: String
     type: ID!
-    owner: ID
+    owner: ID!
   ): Device!
   updateDevice(id: ID!, data: DeviceUpdateInput!): Device!
   deleteDevice(id: ID!): Device!
@@ -16,8 +17,7 @@ type Mutation {
 input DeviceUpdateInput {
   serialNumber: String
   UDTNumber: String
-  VINnumber: String
-  recordNumber: String
+  producentNumber: String
   registrationNumber: String
   productionYear: String
   producent: String
