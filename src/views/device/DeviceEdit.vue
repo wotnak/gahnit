@@ -5,20 +5,26 @@
     </template>
     <template v-else>
       <h1>Edytuj dane urządzenia</h1>
-      <form v-on:submit.prevent="update">
+      <form @submit.prevent="update">
         <label for="serialNumber">Numer seryjny</label>
-        <input id="serialNumber" v-model="editedDevice.serialNumber" placeholder="Numer seryjny" required />
+        <input id="serialNumber" v-model="editedDevice.serialNumber" placeholder="Numer seryjny" />
 
         <label for="UDTNumber">Numer UDT</label>
-        <input id="UDTNumber" v-model="editedDevice.UDTNumber" placeholder="Numer UDT" required />
+        <input id="UDTNumber" v-model="editedDevice.UDTNumber" placeholder="Numer UDT" />
 
         <label for="productionYear">Rok produkcji</label>
-        <input id="productionYear" v-model="editedDevice.productionYear" placeholder="Rok produkcji" required />
+        <input id="productionYear" v-model="editedDevice.productionYear" placeholder="Rok produkcji" />
 
         <label for="producent">Producent</label>
-        <input id="producent" v-model="editedDevice.producent" placeholder="Producent" required />
+        <input id="producent" v-model="editedDevice.producent" placeholder="Producent" />
 
-        <label for="type">Typ</label>
+        <label for="producentNumber">Typ</label>
+        <input id="producentNumber" v-model="editedDevice.producentNumber" placeholder="Typ" />
+
+        <label for="capacity">Udźwig</label>
+        <input id="capacity" v-model="editedDevice.capacity" placeholder="Udźwig" />
+
+        <label for="type">Rodzaj</label>
         <select id="type" v-model="editedDevice.type.id" required>
           <option v-for="type in deviceTypes" :key="type.id" :value="type.id">{{type.preferedName ? type.preferedName : type.name}}</option>
         </select>
@@ -28,7 +34,7 @@
           <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.name}}</option>
         </select>
 
-        <button v-bind:class="classObject" type="submit">Zapisz</button>
+        <button>Zapisz</button>
       </form>
     </template>
   </div>
@@ -57,6 +63,8 @@
         UDTNumber
         productionYear
         producent
+        producentNumber
+        capacity
         owner {
           id
           name
@@ -116,7 +124,9 @@
             productionYear: this.editedDevice.productionYear,
             producent: this.editedDevice.producent,
             type: this.editedDevice.type.id,
-            owner: this.editedDevice.owner.id
+            owner: this.editedDevice.owner.id,
+            producentNumber: this.editedDevice.producentNumber,
+            capacity: this.editedDevice.capacity
           }
         }
 
@@ -129,19 +139,6 @@
           alert(error)
           console.error(error)
         })
-      },
-    },
-
-    computed: {
-      classObject: function(){
-        return {
-          dim:     this.editedDevice.serialNumber
-                && this.editedDevice.UDTNumber
-                && this.editedDevice.productionYear
-                && this.editedDevice.producent
-                && this.editedDevice.type.id
-                && this.editedDevice.owner.id
-        }
       }
     }
   }
