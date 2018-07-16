@@ -1,9 +1,11 @@
 type Mutation {
   createDevice(
-    serialNumber: String!
-    UDTNumber: String!
-    productionYear: String!
-    producent: String!
+    serialNumber: String
+    UDTNumber: String
+    producentNumber: String
+    registrationNumber: String
+    productionYear: String
+    producent: String
     type: ID!
     owner: ID
   ): Device!
