@@ -62,14 +62,14 @@
   export default {
     components: { Loader },
     data: () => ({
-      conservation: { date: today, elements: [{}] },
+      conservation: { date: today },
       udt: { date: today }
     }),
 
     methods: {
-      addElement: function () {
-        this.conservation.elements.push({});
-      },
+      // addElement: function () {
+      //   this.conservation.elements.push({});
+      // },
 
       newConservation() {
         const variables = {
