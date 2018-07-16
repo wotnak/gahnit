@@ -19,7 +19,7 @@
     <h4>Nadchodzące terminy</h4>
     <ul>
       <li v-for="term in getAproachingTerms(device.actions, device.type)">
-        {{ term.type }} - {{ term.nextDate }}
+        {{ term.type }} - {{ term.nextDate }} ({{ term.exact }})
       </li>
     </ul>
     <h4>
@@ -29,7 +29,7 @@
     </h4>
     <ul>
       <li v-for="action in device.actions" v-bind:key="action.id">
-        {{action.date}} - {{ getActionName(action.type) }}
+        {{getDate(action.date)}} - {{ getActionName(action) }}
       </li>
       <li v-if="device.actions.length == 0">Nic tu nie ma.</li>
     </ul>
@@ -72,6 +72,9 @@
             start
             end
           }
+          ... on UDT {
+            inspector
+          }
         }
       }
     }
@@ -105,21 +108,25 @@
       getAproachingTerms(actions, type) {
         const now = moment()
 
-        const conservations = actions.filter((a) => { return a.type=="conservation" } ).sort( (a,b) => { return a.date > b. date } )
-        const udts = actions.filter((a) => { return a.type=="udt" } ).sort( (a,b) => { return a.date > b. date } )
+        const conservations = actions.filter((a) => { return a.__typename=="Conservation" } ).sort( (a,b) => { return a.date > b. date } )
+        const udts = actions.filter((a) => { return a.__typename=="UDT" } ).sort( (a,b) => { return a.date > b. date } )
         const {conservationEveryNDays = 0, udtEveryNDays = 0} = type
+        console.log(udts)
         const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
         const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
-
+        console.log(nextUDTDate)
         return [
-          { type: "Konserwacja", nextDate: now.to(nextConservationDate) },
-          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate) }
+          { type: "Konserwacja", nextDate: now.to(nextConservationDate), exact: nextConservationDate.format("DD/M/YYYY") },
+          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate), exact: nextConservationDate.format("DD/M/YYYY") }
         ]
 
       },
-      getActionName(type) {
-        if (type=="conservation") return "Konserwacja"
-        if (type=="udt") return "Odbiór UDT"
+      getDate(date) {
+        return moment(new Date(date)).format("DD/M/YYYY")
+      },
+      getActionName(action) {
+        if (action.__typename == "Conservation") return "Konserwacja"
+        if (action.__typename == "UDT") return "Odbiór UDT"
         return "Serwis"
       },
       deleteDevice(id) {
