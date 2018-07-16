@@ -33,6 +33,7 @@
         name
         preferedName
         conservationEveryNDays
+        udtEveryNDays
       }
     }
   `
