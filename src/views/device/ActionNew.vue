@@ -80,7 +80,6 @@
           deviceId: this.$route.params.id,
           data: { conservation: this.conservation }
         }
-        delete variables.data.conservation.elements
         this.$apollo.mutate({ mutation: ADD_ACTION, variables })
           .then((data) => { this.$router.push({ path: `/device/${variables.deviceId}`}) })
           .catch((error) => {
