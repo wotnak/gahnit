@@ -12,6 +12,9 @@
         <label for="serialNumber">Numer seryjny</label>
         <input id="serialNumber" v-model="serialNumber" placeholder="Numer seryjny" type="text" />
 
+        <label for="registrationNumber">Numer rejestracyjny</label>
+        <input id="registrationNumber" v-model="registrationNumber" placeholder="Numer seryjny" type="text" />
+
         <label for="productionYear">Rok produkcji</label>
         <input id="productionYear" v-model="productionYear" placeholder="Rok produkcji" type="text" />
 
@@ -41,8 +44,8 @@
   import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
   const CREATE_DEVICE = gql `
-    mutation CreateDeviceMutation($serialNumber: String!, $UDTNumber: String!, $productionYear: String!, $producent: String!, $type: ID!, $owner: ID) {
-      createDevice(serialNumber: $serialNumber, UDTNumber: $UDTNumber, productionYear: $productionYear, producent: $producent, type: $type, owner: $owner) {
+    mutation CreateDeviceMutation($serialNumber: String, $UDTNumber: String, $productionYear: String, $producent: String, $type: ID!, $owner: ID!, $registrationNumber: String, $producentNumber: String) {
+      createDevice(serialNumber: $serialNumber, UDTNumber: $UDTNumber, productionYear: $productionYear, producent: $producent, type: $type, owner: $owner, registrationNumber: $registrationNumber, producentNumber: $producentNumber) {
         id
       }
     }
@@ -71,8 +74,10 @@
     data: () => ({
       serialNumber: '',
       UDTNumber: '',
+      registrationNumber: '',
       productionYear: '',
       producent: '',
+      producentNumber: '',
       type: '',
       owner: '',
       deviceTypes: {},
@@ -86,20 +91,20 @@
     methods: {
       create() {
         const variables = {
-            serialNumber: serialNumber.value,
-            UDTNumber: UDTNumber.value,
-            productionYear: productionYear.value,
-            producent: producent.value,
-            type: type.value,
-            owner: owner.value
+            serialNumber: this.serialNumber,
+            UDTNumber: this.UDTNumber,
+            registrationNumber: this.registrationNumber,
+            productionYear: this.productionYear,
+            producent: this.producent,
+            type: this.type,
+            owner: this.owner
         }
-        console.log(variables)
 
         this.$apollo.mutate({
           mutation: CREATE_DEVICE,
           variables
         }).then((data) => {
-          this.$router.push({ path: `/devices`})
+          this.$router.push({ name: 'DeviceList' })
         }).catch((error) => {
           console.log(variables)
           alert(error)
