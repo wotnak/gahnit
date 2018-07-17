@@ -12,6 +12,7 @@
       <li>Właściciel: <router-link :to="{ name: 'CustomerDetails', params: { id: device.owner.id }}">{{ device.owner.name }}</router-link></li>
       <li>Numer seryjny: {{device.serialNumber}}</li>
       <li>Numer UDT: {{device.UDTNumber}}</li>
+      <li>Numer rejestracyjny: {{device.registrationNumber}}</li>
       <li>Rok produkcji: {{device.productionYear}}</li>
       <li>Producent: {{device.producent}}</li>
       <li>Typ: {{device.producentNumber}}</li>
@@ -52,6 +53,7 @@
         id
         serialNumber
         UDTNumber
+        registrationNumber
         productionYear
         producent
         producentNumber

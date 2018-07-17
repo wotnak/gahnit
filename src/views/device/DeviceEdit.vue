@@ -12,6 +12,9 @@
         <label for="UDTNumber">Numer UDT</label>
         <input id="UDTNumber" v-model="editedDevice.UDTNumber" placeholder="Numer UDT" />
 
+        <label for="registrationNumber">Numer rejestracyjny</label>
+        <input id="registrationNumber" v-model="editedDevice.registrationNumber" placeholder="Numer rejestracyjny" />
+
         <label for="productionYear">Rok produkcji</label>
         <input id="productionYear" v-model="editedDevice.productionYear" placeholder="Rok produkcji" />
 
@@ -61,6 +64,7 @@
         }
         serialNumber
         UDTNumber
+        registrationNumber
         productionYear
         producent
         producentNumber
@@ -122,6 +126,7 @@
             serialNumber: this.editedDevice.serialNumber,
             UDTNumber: this.editedDevice.UDTNumber,
             productionYear: this.editedDevice.productionYear,
+            registrationNumber: this.registrationNumber,
             producent: this.editedDevice.producent,
             type: this.editedDevice.type.id,
             owner: this.editedDevice.owner.id,
