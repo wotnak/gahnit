@@ -28,12 +28,12 @@
         <input id="capacity" v-model="capacity" placeholder="Udźwig" type="text" />
 
         <label for="type">Rodzaj</label>
-        <select id="type" v-model="type">
+        <select id="type" v-model="type" required>
           <option v-for="deviceType in deviceTypes" :key="deviceType.id" :value="deviceType.id">{{deviceType.preferedName ? deviceType.preferedName : deviceType.name}}</option>
         </select>
 
         <label for="owner">Właściciel</label>
-        <select id="owner" v-model="owner">
+        <select id="owner" v-model="owner" required>
           <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.name}}</option>
         </select>
 
