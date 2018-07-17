@@ -31,7 +31,7 @@
     </h4>
     <ul>
       <li v-for="action in device.actions" v-bind:key="action.id">
-        {{getDate(action.date)}} - {{ getActionName(action) }}
+        {{getDate(action.date)}} - {{ getActionName(action) }} <button @click="deleteAction(action.id)">Usuń</button>
       </li>
       <li v-if="device.actions.length == 0">Nic tu nie ma.</li>
     </ul>
@@ -90,6 +90,15 @@
       }
     }
   `
+
+  const DELETE_ACTION = gql`
+    mutation removeAction($id: ID!) {
+      removeAction(id: $id) {
+        id
+      }
+    }
+  `
+
   export default {
     components: { Loader },
     data() {
@@ -137,6 +146,17 @@
           variables: { id },
         }).then((data) => {
           this.$router.push({ path: '/devices' })
+        }).catch((error) => {
+          console.error(error)
+          alert(error)
+        })
+      },
+      deleteAction(id) {
+        this.$apollo.mutate({
+          mutation: DELETE_ACTION,
+          variables: { id },
+        }).then((data) => {
+          this.$router.go()
         }).catch((error) => {
           console.error(error)
           alert(error)
