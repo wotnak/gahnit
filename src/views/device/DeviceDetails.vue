@@ -70,15 +70,6 @@
         actions {
           id
           date
-          description
-          ... on Conservation {
-            employee
-            start
-            end
-          }
-          ... on UDT {
-            inspector
-          }
         }
       }
     }
