@@ -126,7 +126,7 @@
             serialNumber: this.editedDevice.serialNumber,
             UDTNumber: this.editedDevice.UDTNumber,
             productionYear: this.editedDevice.productionYear,
-            registrationNumber: this.registrationNumber,
+            registrationNumber: this.editedDevice.registrationNumber,
             producent: this.editedDevice.producent,
             type: this.editedDevice.type.id,
             owner: this.editedDevice.owner.id,
