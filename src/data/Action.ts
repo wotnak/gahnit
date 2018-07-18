@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose'
 import * as mongooseLeanId from 'mongoose-lean-id'
 
 const actionSchema = mongoose.Schema({
-  date: Date,
+  date: String,
   description: String,
   device: String,
   customer: String,
