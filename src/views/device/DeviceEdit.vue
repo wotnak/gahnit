@@ -34,7 +34,7 @@
 
         <label for="owner">Właściciel</label>
         <select id="owner" v-model="editedDevice.owner.id" required>
-          <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.name}}</option>
+          <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.symbol}} {{customer.name}}</option>
         </select>
 
         <button>Zapisz</button>
@@ -91,6 +91,7 @@
       customers {
         id
         name
+        symbol
       }
     }
   `

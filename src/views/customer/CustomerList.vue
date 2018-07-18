@@ -30,6 +30,7 @@
       customers {
         id
         name
+        symbol
       }
     }
   `
@@ -38,6 +39,7 @@
     components: { Loader, VueGoodTable },
     data: () => ({
       columns: [
+        { label: 'Symbol', field: 'symbol'},
         { label: 'Nazwa', field: 'name'}
       ],
       customers: {},
