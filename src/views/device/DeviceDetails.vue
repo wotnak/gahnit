@@ -21,7 +21,7 @@
     </ul>
     <h4>Nadchodzące terminy</h4>
     <ul>
-      <li v-for="term in getAproachingTerms(device.actions, device.type)">
+      <li v-for="term in getAproachingTerms()">
         {{ term.type }} - {{ term.nextDate }} ({{ term.exact }})
       </li>
     </ul>
@@ -59,6 +59,8 @@
         producent
         producentNumber
         capacity
+        nextUDT
+        nextConservation
         type {
           id
           name
@@ -114,17 +116,17 @@
     },
 
     methods: {
-      getAproachingTerms(actions, type) {
+      getAproachingTerms() {
         const now = moment()
+        const nextConservationDate = moment(this.device.nextConservation)
+        const nextUDTDate = moment(this.device.nextUDT)
 
-        const conservations = actions.filter((a) => { return a.__typename=="Conservation" } ).sort( (a,b) => { return a.date > b. date } )
-        const udts = actions.filter((a) => { return a.__typename=="UDT" } ).sort( (a,b) => { return a.date > b. date } )
-        const {conservationEveryNDays = 0, udtEveryNDays = 0} = type
-        const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
-        const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
+        const tillNextUDT = now.isSame(nextUDTDate, 'day') ? 'dzisiaj' : now.to(nextUDTDate)
+        const tillNextConservation = now.isSame(nextConservationDate, 'day') ? 'dzisiaj' : now.to(nextConservationDate)
+
         return [
-          { type: "Konserwacja", nextDate: now.to(nextConservationDate), exact: nextConservationDate.format("DD/M/YYYY") },
-          { type: "Odbiór UDT", nextDate: now.to(nextUDTDate), exact: nextUDTDate.format("DD/M/YYYY") }
+          { type: "Konserwacja", nextDate: tillNextConservation, exact: nextConservationDate.format("MM/YYYY") },
+          { type: "Odbiór UDT", nextDate: tillNextUDT, exact: nextUDTDate.format("MM/YYYY") }
         ]
 
       },
