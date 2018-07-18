@@ -6,13 +6,13 @@ moment.locale('pl')
 
 export const nextTerms = (actions, conservationEveryNDays = 0, udtEveryNDays = 0) => {
   const now = moment()
-  const conservations = actions.filter((a) => { return a.type=="conservation" } ).sort( (a,b) => { return a.date > b. date } )
-  const udts = actions.filter((a) => { return a.type=="udt" } ).sort( (a,b) => { return a.date > b. date } )
+  const conservations = actions.filter((a) => { return a.type=="conservation" } ).sort( (a,b) => { return moment(a.date).isBefore(moment(b.date)) } )
+  const udts = actions.filter((a) => { return a.type=="udt" } ).sort( (a,b) => { return moment(a.date).isBefore(moment(b.date)) } )
   const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
   const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
   return {
-    udt: nextUDTDate,
-    conservation: nextConservationDate
+    udt: nextUDTDate.format("YYYY-MM-DD"),
+    conservation: nextConservationDate.format("YYYY-MM-DD")
   }
 }
 
