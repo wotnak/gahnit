@@ -1,7 +1,7 @@
 <template>
   <nav class="userMenu">
-    <span>{{me.displayName}}</span>
-    <button v-on:click="logout" class="logout">Wyloguj</button>
+    <span class="username">{{me.displayName}}</span>
+    <button v-on:click="logout" class="invert">Wyloguj</button>
   </nav>
 </template>
 
@@ -43,9 +43,8 @@
 
 
 <style scoped lang="stylus">
-.logout:hover
-  cursor: pointer
-
 .userMenu
   margin-left: 10px
+.username
+  margin-right: 10px
 </style>
