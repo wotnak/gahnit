@@ -6,6 +6,7 @@
 
   <template v-else>
     <router-link :to="{ name: 'DeviceNew'}" tag="button">Dodaj nowe</router-link>
+    <router-link :to="{ name: 'DeviceNewWithActions'}" tag="button">Dodaj nowe z akcjami</router-link>
     <h1>Urządzenia</h1>
 
     <VueGoodTable
