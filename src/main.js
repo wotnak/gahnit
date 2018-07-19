@@ -53,23 +53,11 @@ const link = split(
 )
 
 
-const defaultOptions = {
-      watchQuery: {
-        fetchPolicy: 'network-only',
-        errorPolicy: 'ignore',
-      },
-      query: {
-        fetchPolicy: 'network-only',
-        errorPolicy: 'all',
-      },
-    }
-
 // apollo client setup
 const client = new ApolloClient({
   link: ApolloLink.from([link]),
   cache: new InMemoryCache(),
   connectToDevTools: true,
-  defaultOptions: defaultOptions,
   onError: (e) => { console.log(e) }
 })
 
