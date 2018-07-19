@@ -1,7 +1,7 @@
 <template>
   <div id="topbar">
     <h2>Gahnit</h2>
-    <SearchBar/>
+    <!-- <SearchBar/> -->
     <UserMenu/>
   </div>
 </template>
