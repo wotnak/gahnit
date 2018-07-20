@@ -53,6 +53,7 @@
     query DevicesQuery {
       devices {
         id
+        UDTNumber
         type {
           id
           preferedName
@@ -72,7 +73,7 @@
     components: { Loader, VueGoodTable },
     data: () => ({
       columns: [
-        { label: 'Id', field: 'id' },
+        { label: 'Numer UDT', field: 'UDTNumber' },
         { label: 'Właściciel', field: 'owner.name' },
         { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
         { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
