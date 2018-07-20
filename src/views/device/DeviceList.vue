@@ -14,6 +14,24 @@
       :rows="devices"
       :lineNumbers="true"
       @on-row-click="onRowClick"
+      :pagination-options="{
+        enabled: true,
+        mode: 'records',
+        perPage: 25,
+        position: 'bottom',
+        perPageDropdown: [25, 50, 100],
+        dropdownAllowAll: false,
+        nextLabel: 'następna',
+        prevLabel: 'poprzednia',
+        rowsPerPageLabel: 'Wiersze na stronę',
+        ofLabel: 'z',
+        pageLabel: 'strona'
+      }"
+      :search-options="{
+        enabled: true,
+        trigger: 'enter',
+        placeholder: 'Szukaj (wpisz szukaną frazę i wciśnij enter aby wyszukać)',
+      }"
     />
 
   </template>
