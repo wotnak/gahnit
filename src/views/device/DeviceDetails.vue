@@ -145,7 +145,7 @@
           update: (proxy, { data: { deleteDevice } }) => {
             const query = gql`query { devices { id } }`
             const data = proxy.readQuery({query})
-            const devices = data.devices.filter(device => { device.id != deleteDevice.id})
+            const devices = data.devices.filter(device => { return device.id != deleteDevice.id})
             data.devices = devices
             proxy.writeQuery({ query, data })
           }
