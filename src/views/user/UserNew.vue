@@ -4,11 +4,11 @@
     <form @submit.prevent="create">
 
       <label for="username">Login</label>
-      <input id="username" v-model="username" placeholder="imienazwisko" type="text" required />
+      <input id="username" type="text" v-model="username" placeholder="imienazwisko" required />
       <label for="displayName">Nazwa</label>
-      <input id="displayName" v-model="displayName" placeholder="Imię Nazwisko" type="text" required />
+      <input id="displayName" type="text" v-model="displayName" placeholder="Imię Nazwisko" required />
       <label for="password">Hasło</label>
-      <input id="password" v-model="password" placeholder="********" type="password" />
+      <input id="password" type="password" v-model="password" placeholder="********" required />
 
       <button>Dodaj</button>
     </form>
@@ -44,8 +44,7 @@
         }).then((data) => {
           this.$router.push({ name: 'UserList'})
         }).catch((error) => {
-          // Error
-          alert(`Error from ${error}`)
+          alert(error)
           console.error(error)
         })
       },

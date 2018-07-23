@@ -1,15 +1,15 @@
 <template>
   <div class='login'>
     <h1>Gahnit</h1>
-    <form v-on:submit.prevent="login">
+    <form @submit.prevent="login">
 
       <label for="username">Login</label>
-      <input type="text" autofocus name="username" id="username" autocomplete="username" v-model="username" />
+      <input id="username" type="text" v-model="username" required autofocus />
 
       <label for="password">Hasło</label>
-      <input type="password" name="password" autocomplete="password" id="password" v-model="password" />
+      <input id="password" type="password" v-model="password" required />
 
-      <button v-bind:class="classObject" type="submit">Zaloguj</button>
+      <button>Zaloguj</button>
     </form>
   </div>
 </template>
@@ -55,50 +55,28 @@ form
       password: ''
     }),
 
-    // Attribute
     methods: {
       login() {
-        const username = this.username
-        const password = this.password
-
-        // Mutation
         this.$apollo.mutate({
           mutation: LOGIN_USER,
           variables: {
-            username,
-            password
+            username: this.username,
+            password: this.password
           },
         }).then((result) => {
-          // Result
-          console.log(result);
           const user = result.data.login.user.id
           const token = result.data.login.token
           this.saveUserData(user, token)
           this.$router.go({ path: '/' })
         }).catch((error) => {
-          // Error
-          alert(`Error from ${error}`)
+          alert(error)
           console.error(error)
         })
       },
-
       saveUserData (user, token) {
         localStorage.setItem(USER_ID, user)
         localStorage.setItem(AUTH_TOKEN, token)
         this.$root.$data.token = localStorage.getItem(USER_ID)
-      }
-    },
-
-    computed: {
-      canLogin: function () {
-        return {
-          disabled: !this.username && !this.password
-        }
-      },
-      classObject: function(){
-        return {
-          dim: this.username && this.password
-        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="loading > 0">
+    <template v-if="$apollo.loading">
       <Loader/>
     </template>
 
@@ -30,20 +30,17 @@
     data() {
       return {
         user: {},
-        loading: 0,
         id: this.$route.params.id
       }
     },
 
-    // Apollo GraphQL
     apollo: {
       user: {
         query: USER_QUERY,
-        loadingKey: 'loading',
         variables() {
           return {id: this.id}
         }
-      },
-    },
+      }
+    }
   }
 </script>

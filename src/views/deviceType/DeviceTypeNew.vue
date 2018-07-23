@@ -3,15 +3,15 @@
   <h1>Nowy rodzaj urządzeń</h1>
   <form @submit.prevent="create">
     <label for="name">Pełna nazwa</label>
-    <input id="name" auto-focus v-model="name" placeholder="Skomplikowany podnośny dźwig" type="text" required />
+    <input id="name" type="text" v-model="name" placeholder="Skomplikowany podnośny dźwig" required auto-focus />
     <label for="preferedName">Nazwa zwyczajowa</label>
-    <input id="preferedName" v-model="preferedName" placeholder="Dźwig" type="text" required/>
+    <input id="preferedName" type="text" v-model="preferedName" placeholder="Dźwig" required/>
 
     <label for="conservationEveryNDays">Konserwacja co N dni</label>
-    <input id="conservationEveryNDays" v-model="conservationEveryNDays" type="number" step="1" min="0" required/>
+    <input id="conservationEveryNDays" type="number" v-model="conservationEveryNDays" step="1" min="0" required />
 
     <label for="udtEveryNDays">UDT co N dni</label>
-    <input id="udtEveryNDays" v-model="udtEveryNDays" type="number" step="1" min="0" required/>
+    <input id="udtEveryNDays" type="number" v-model="udtEveryNDays" step="1" min="0" required />
 
     <button>Dodaj</button>
   </form>
@@ -49,8 +49,7 @@
         }).then((data) => {
           this.$router.push({ name: `DeviceTypeList`})
         }).catch((error) => {
-          // Error
-          alert(`Error from ${error}`)
+          alert(error)
           console.error(error)
         })
       },

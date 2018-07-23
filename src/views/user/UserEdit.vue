@@ -2,7 +2,7 @@
   <div>
     <h1>Nowy klient</h1>
     <h4>Informacje</h4>
-    <form v-on:submit.prevent="create">
+    <form @submit.prevent="create">
       <input
         auto-focus
         v-model="name"
@@ -26,7 +26,7 @@
       <input v-model="address.postCode" placeholder="Kod pocztowy" type="text" value={address.postCode} required />
       <input v-model="address.postDepartment" placeholder="Poczta" type="text" value={address.postDepartment} />
 
-      <button v-bind:class="classObject" type="submit">Dodaj</button>
+      <button>Dodaj</button>
     </form>
   </div>
 </template>
