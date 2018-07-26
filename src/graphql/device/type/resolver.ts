@@ -3,8 +3,8 @@ import { DeviceType } from '../../../data/DeviceType'
 export const resolver = {
   // Queries
   Query: {
-    deviceTypes: async (parent, args, ctx, info) => {
-      const types = await DeviceType.find().lean()
+    deviceTypes: async (parent, {limit, offset}, ctx, info) => {
+      const types = (limit && offset) ? await DeviceType.find().limit(limit).skip(offset).lean() : await DeviceType.find().lean()
       return types
     },
 

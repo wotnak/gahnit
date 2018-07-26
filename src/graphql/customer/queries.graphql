@@ -1,4 +1,4 @@
 type Query {
-  customers: [Customer!]!
+  customers(limit: Int, offset: Int): [Customer!]!
   customer(id: ID!): Customer!
 }

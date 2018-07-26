@@ -6,8 +6,8 @@ import { User } from '../../data/User'
 export const resolver = {
   // Queries
   Query: {
-    users: async (parent, args, ctx, info) => {
-      const users = await User.find().lean()
+    users: async (parent, {limit, offset}, ctx, info) => {
+      const users = (limit && offset) ? await User.find().limit(limit).skip(offset).lean() : await User.find().lean()
       return users
     },
     user: async (parent, { id }, ctx, info) => {

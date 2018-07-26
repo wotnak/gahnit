@@ -8,20 +8,28 @@ import { normalizeCustomer, nextTerms } from '../../utils'
 export const resolver = {
   // Queries
   Query: {
-    customers: async (parent, args, ctx, info) => {
-      const result = await sql.query`SELECT
-                                        adr_IdObiektu AS id,
-                                        adr_Nazwa AS name,
-                                        adr_Symbol AS symbol,
-                                        adr_NIP AS nip,
-                                        adr_IdPanstwo AS country,
-                                        adr_Miejscowosc AS city,
-                                        adr_Ulica AS street,
-                                        adr_NrDomu AS building,
-                                        adr_NrLokalu AS apartment,
-                                        adr_Kod AS postCode,
-                                        adr_Poczta AS postDepartment
-                                      FROM adr__Ewid WHERE adr_TypAdresu=1 ORDER BY name`
+    customers: async (parent, {limit, offset}, ctx, info) => {
+
+      let query = `SELECT
+                      adr_IdObiektu AS id,
+                      adr_Nazwa AS name,
+                      adr_Symbol AS symbol,
+                      adr_NIP AS nip,
+                      adr_IdPanstwo AS country,
+                      adr_Miejscowosc AS city,
+                      adr_Ulica AS street,
+                      adr_NrDomu AS building,
+                      adr_NrLokalu AS apartment,
+                      adr_Kod AS postCode,
+                      adr_Poczta AS postDepartment
+                    FROM adr__Ewid WHERE adr_TypAdresu=1 ORDER BY name`
+
+      if (offset && limit)
+        query+=` OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY`
+
+      const request = new sql.Request()
+      const result = await request.query(query)
+
       const customers = result.recordset
       await Promise.all(customers.map(async customer => {
         normalizeCustomer(customer)

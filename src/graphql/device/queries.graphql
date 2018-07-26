@@ -1,4 +1,4 @@
 type Query {
-  devices(type: ID): [Device!]!
+  devices(type: ID, limit: Int, offset: Int): [Device!]!
   device(id: ID!): Device!
 }

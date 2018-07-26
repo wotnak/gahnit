@@ -8,8 +8,11 @@ import {resolver as actionResolver} from './action/resolver'
 export const resolver = {
   // Queries
   Query: {
-    devices: async (parent, { type }, ctx, info) => {
-      const devices = (type != undefined) ? await Device.find({type}).lean() : await Device.find().lean()
+    devices: async (parent, { type, limit, offset }, ctx, info) => {
+      const filter = (type != undefined) ? {type} : null
+      const devices = (limit && offset) ?
+                                  await Device.find(filter).limit(limit).skip(offset).lean()
+                                  : await Device.find(filter).lean()
       await Promise.all(devices.map(async device => {
         const deviceType = await DeviceType.findById(device.type).lean()
         device.type = deviceType
