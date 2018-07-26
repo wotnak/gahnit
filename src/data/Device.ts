@@ -21,5 +21,9 @@ const deviceSchema = mongoose.Schema({
 })
  
 deviceSchema.plugin(mongooseLeanId)
+deviceSchema.index(
+  { serialNumber: 'text', UDTNumber: 'text', registrationNumber: 'text', productionYear: 'text', producent: 'text', producentNumber: 'text', capacity: 'text' },
+  { name: 'search' }
+  )
 
 export const Device = mongoose.model('Device', deviceSchema)
