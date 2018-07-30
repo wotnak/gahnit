@@ -15,7 +15,7 @@ import { USER_ID, AUTH_TOKEN } from './constants'
 // Vue production tip config
 Vue.config.productionTip = false
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000/' })
+const httpLink = new HttpLink({ uri: `http://${process.env.GAHNIT_SERVER}` })
 
 const middlewareLink = new ApolloLink((operation, forward) => {
   // get the authentication token from local storage if it exists
@@ -33,7 +33,7 @@ const middlewareLink = new ApolloLink((operation, forward) => {
 const httpLinkAuth = middlewareLink.concat(httpLink)
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/`,
+  uri: `ws://${process.env.GAHNIT_SERVER}`,
   options: {
     reconnect: true,
     connectionParams: {
