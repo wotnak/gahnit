@@ -65,6 +65,12 @@
   </div>
 </template>
 
+<style lang="stylus" scoped>
+.ui.fluid.search.selection.dropdown
+  min-height: auto
+  width: auto
+</style>
+
 <script>
   import Loader from '@/components/Loader'
   import { ModelListSelect } from 'vue-search-select'
