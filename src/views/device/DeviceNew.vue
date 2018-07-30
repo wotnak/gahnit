@@ -7,44 +7,73 @@
       <h1>Nowe urządzenie</h1>
       <form @submit.prevent="create">
         <label for="UDTNumber">Numer UDT</label>
-        <input id="UDTNumber" v-model="UDTNumber" placeholder="Numer UDT" type="text" auto-focus />
+        <input id="UDTNumber" v-model="device.UDTNumber" placeholder="Numer UDT" type="text" auto-focus />
 
         <label for="serialNumber">Numer seryjny</label>
-        <input id="serialNumber" v-model="serialNumber" placeholder="Numer seryjny" type="text" />
+        <input id="serialNumber" v-model="device.serialNumber" placeholder="Numer seryjny" type="text" />
 
         <label for="registrationNumber">Numer rejestracyjny</label>
-        <input id="registrationNumber" v-model="registrationNumber" placeholder="Numer rejestracyjny" type="text" />
+        <input id="registrationNumber" v-model="device.registrationNumber" placeholder="Numer rejestracyjny" type="text" />
 
         <label for="productionYear">Rok produkcji</label>
-        <input id="productionYear" v-model="productionYear" placeholder="Rok produkcji" type="text" />
+        <input id="productionYear" v-model="device.productionYear" placeholder="Rok produkcji" type="text" />
 
         <label for="producent">Producent</label>
-        <input id="producent" v-model="producent" placeholder="Producent" type="text" />
+        <input id="producent" v-model="device.producent" placeholder="Producent" type="text" />
 
         <label for="producentNumber">Typ</label>
-        <input id="producentNumber" v-model="producentNumber" placeholder="Typ" type="text" />
+        <input id="producentNumber" v-model="device.producentNumber" placeholder="Typ" type="text" />
 
         <label for="capacity">Udźwig</label>
-        <input id="capacity" v-model="capacity" placeholder="Udźwig" type="text" />
+        <input id="capacity" v-model="device.capacity" placeholder="Udźwig" type="text" />
 
         <label for="type">Rodzaj</label>
-        <select id="type" v-model="type" required>
+        <select id="type" v-model="device.type" required>
           <option v-for="deviceType in deviceTypes" :key="deviceType.id" :value="deviceType.id">{{deviceType.preferedName ? deviceType.preferedName : deviceType.name}}</option>
         </select>
 
         <label for="owner">Właściciel</label>
-        <select id="owner" v-model="owner" required>
-          <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{customer.symbol}} {{customer.name}}</option>
-        </select>
+        <model-list-select
+          id="owner"
+          :list="customers"
+          optionValue="id"
+          :customText="(customer) => { return `${customer.symbol} - ${customer.name}` }"
+          v-model="device.owner"
+          placeholder="wybierz klienta"
+        />
 
-        <button>Dodaj</button>
+        <h3>Akcje <button type="button" @click="addAction('udt')">Dodaj UDT</button> <button type="button" @click="addAction('conservation')">Dodaj Konserwację</button></h3>
+        <fieldset v-for="(action, index) in device.actions">
+          <template v-if="action.udt">
+            <legend>UDT</legend>
+            <label :for="'date' + index">Data</label>
+            <input :id="'date' + index" type="date" v-model="action.udt.date">
+            <label :for="'inspector' + index">Inspektor</label>
+            <input :id="'inspector' + index" type="text" v-model="action.udt.inspector" placeholder="Nazwisko Imię">
+          </template>
+          <template v-if="action.conservation">
+            <legend>Konserwacja</legend>
+            <label :for="'date' + index">Data</label>
+            <input :id="'date' + index" type="date" v-model="action.conservation.date">
+          </template>
+          <button type="button" @click="removeAction(index)">Usuń</button>
+        </fieldset>
+
+        <button>Zapisz urządzenie</button>
       </form>
     </template>
   </div>
 </template>
 
+<style lang="stylus" scoped>
+.ui.fluid.search.selection.dropdown
+  min-height: auto
+  width: auto
+</style>
+
 <script>
   import Loader from '@/components/Loader'
+  import { ModelListSelect } from 'vue-search-select'
   import gql from 'graphql-tag'
   const CREATE_DEVICE = gql `
     mutation CreateDeviceMutation(
@@ -56,8 +85,9 @@
       $owner: ID!,
       $registrationNumber: String,
       $producentNumber: String,
-      $capacity: String) {
-      createDevice(
+      $capacity: String,
+      $actions: [AddActionInput]) {
+      createDeviceWithActions(
         serialNumber: $serialNumber,
         UDTNumber: $UDTNumber,
         productionYear: $productionYear,
@@ -66,7 +96,8 @@
         owner: $owner,
         registrationNumber: $registrationNumber,
         producentNumber: $producentNumber,
-        capacity: $capacity) {
+        capacity: $capacity,
+        actions: $actions) {
         id
       }
     }
@@ -92,19 +123,11 @@
   `
 
   export default {
-    components: { Loader },
+    components: { Loader, ModelListSelect },
     data: () => ({
-      serialNumber: '',
-      UDTNumber: '',
-      registrationNumber: '',
-      productionYear: '',
-      producent: '',
-      producentNumber: '',
-      type: '',
-      owner: '',
+      device: { actions:[] },
       deviceTypes: {},
       customers: {},
-      capacity: ''
     }),
 
     apollo: {
@@ -113,18 +136,7 @@
     },
     methods: {
       create() {
-        const variables = {
-            serialNumber: this.serialNumber,
-            UDTNumber: this.UDTNumber,
-            registrationNumber: this.registrationNumber,
-            productionYear: this.productionYear,
-            producent: this.producent,
-            producentNumber: this.producentNumber,
-            capacity: this.capacity,
-            type: this.type,
-            owner: this.owner
-        }
-
+        const variables = {...this.device}
         this.$apollo.mutate({
           mutation: CREATE_DEVICE,
           variables
@@ -135,6 +147,19 @@
           alert(error)
           console.error(error)
         })
+      },
+      addAction(type) {
+        if (type === 'udt') {
+          const udtAction = { udt: { date: new Date().toISOString().substring(0, 10), inspector: '' } }
+          this.device.actions.push(udtAction)
+        }
+        if (type === 'conservation') {
+          const conservationAction = { conservation: { date: new Date().toISOString().substring(0, 10) } }
+          this.device.actions.push(conservationAction)
+        }
+      },
+      removeAction(index) {
+        this.device.actions.splice(index, 1)
       }
     }
   }
