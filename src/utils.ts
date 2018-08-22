@@ -34,8 +34,11 @@ export class AuthError extends Error {
 }
 
 export const normalizeCustomer = (customer) => {
+  customer.subiektId = customer.id
+  customer.symbol = customer.symbol.trim()
+  delete customer.id
   customer.address = {
-    country: !customer.country || customer.country == 1 ? 'Polska' : customer.country,
+    country: !customer.country || customer.country == 1 ? 'PL' : customer.country,
     city: customer.city,
     street: customer.street,
     building: customer.building,
