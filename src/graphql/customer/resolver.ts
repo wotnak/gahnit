@@ -68,10 +68,24 @@ export const resolver = {
       const result = await request.query(query)
 
       const customers = result.recordset
-      customers.forEach(customer => {
+      await Promise.all(customers.map(async customer => {
         normalizeCustomer(customer)
         Customer.update({subiektId: customer.subiektId}, customer , {upsert: true, setDefaultsOnInsert: true}).exec()
-      })
+        const c = await Customer.findOne({subiektId: customer.subiektId})
+        const devices = await Device.find({owner: c.subiektId})
+        await Promise.all(devices.map(async device => {
+          device.set({owner: c.id})
+          await device.save()
+        }))
+        const actions = await Action.find({customer: c.subiektId})
+        await Promise.all(actions.map(async action => {
+          action.set({customer: c.id})
+          await action.save()
+        }))
+      }))
+      Action.synchronize()
+      Device.synchronize()
+      Customer.synchronize()
     }
   }
 
