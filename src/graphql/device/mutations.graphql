@@ -36,4 +36,5 @@ input DeviceUpdateInput {
   capacity: String
   type: ID
   owner: ID
+  notes: String
 }

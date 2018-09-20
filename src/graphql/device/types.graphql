@@ -17,5 +17,7 @@ type Device {
 
   owner: Customer!
 
+  notes: String
+
   actions: [Action!]!
 }

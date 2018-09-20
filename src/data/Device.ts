@@ -16,6 +16,8 @@ const deviceSchema = mongoose.Schema({
 
   owner: String,
 
+  notes: String,
+
   actions: [String]
 
 })
