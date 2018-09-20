@@ -7,7 +7,7 @@
   <template v-else>
     <router-link :to="{ name: 'DeviceEdit', params: { id: device.id }}"  tag="button">Edytuj</router-link>
     <button @click="deleteDevice(device.id)">Usun</button>
-    <h1>{{device.id}}</h1>
+    <h1>{{ device.type.preferedName ? device.type.preferedName : device.type.name }} {{device.producent}} {{device.producentNumber}}{{device.udtNumber ? " - "+device.udtNumber : ""}}</h1>
     <ul>
       <li>Właściciel: <router-link :to="{ name: 'CustomerDetails', params: { id: device.owner.id }}">{{ device.owner.name }}</router-link></li>
       <li>Numer seryjny: {{device.serialNumber}}</li>
@@ -64,6 +64,7 @@
         type {
           id
           name
+          preferedName
           conservationEveryNDays
           udtEveryNDays
         }
