@@ -56,6 +56,10 @@
         }
         devices {
           id
+          type {
+            id
+            name
+          }
           UDTNumber
           registrationNumber
           producentNumber
@@ -77,6 +81,7 @@
     data() {
       return {
         columns: [
+          { label: 'Rodzaj', field: 'type.name'},
           { label: 'Numer UDT', field: 'UDTNumber'},
           { label: 'Numer rejestracyjny', field: 'registrationNumber'},
           { label: 'Typ', field: 'producentNumber'},
