@@ -36,9 +36,31 @@
       </li>
       <li v-if="device.actions.length == 0">Nic tu nie ma.</li>
     </ul>
+    <div class="notesCont">
+      <h3>Notatki</h3>
+      <form @submit.prevent="saveNotes(device.id, notes)">
+        <textarea id="notes" v-model="notes" rows="32"></textarea>
+        <button>Zapisz</button>
+      </form>
+    </div>
   </template>
 </div>
 </template>
+<style lang="stylus">
+.notesCont
+  position: absolute
+  right: 20px
+  top: 50px
+  width: calc(100vw - 900px)
+  
+  textarea
+    font-family: inherit
+    border: none
+    background-color: #c6c8ca
+    padding: 5px
+    border-radius: 2px
+    font-size: inherit
+</style>
 <script>
   import Loader from '@/components/Loader'
 
@@ -61,6 +83,7 @@
         capacity
         nextUDT
         nextConservation
+        notes
         type {
           id
           name
@@ -98,25 +121,47 @@
     }
   `
 
+  const UPDATE_NOTES = gql`
+    mutation updateDevice($id: ID!, $data: DeviceUpdateInput!) {
+      updateDevice(id: $id, data: $data) {
+        id
+      }
+    }
+  `
+
   export default {
     components: { Loader },
-    data() {
-      return {
-        device: {},
-        id: this.$route.params.id
-      }
-    },
+    data: () => ({
+      device: {},
+      notes: "",
+    }),
 
     apollo: {
       device: {
         query: DEVICE_QUERY,
         variables() {
-          return {id: this.id}
-        }
+          return {id: this.$route.params.id}
+        },
+        update({device}) {
+          const notes = JSON.parse(JSON.stringify(device.notes))
+          this.notes = notes
+          return device
+        },
       },
     },
 
     methods: {
+      saveNotes(id, notes) {
+        this.$apollo.mutate({
+          mutation: UPDATE_NOTES,
+          variables: { id: id, data: {notes: notes} },
+        }).then((data) => {
+          alert("Notatki zostały zapisane.")
+        }).catch((error) => {
+          console.error(error)
+          alert(error)
+        })
+      },
       getAproachingTerms() {
         const now = moment()
         const nextConservationDate = moment(this.device.nextConservation)
