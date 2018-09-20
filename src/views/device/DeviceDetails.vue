@@ -74,7 +74,7 @@
         actions {
           id
           date
-          ... on UDT {
+          ...on UDT {
             inspector
           }
         }
