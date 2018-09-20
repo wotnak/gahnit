@@ -83,9 +83,6 @@ export const resolver = {
           await action.save()
         }))
       }))
-      Action.synchronize()
-      Device.synchronize()
-      Customer.synchronize()
     }
   }
 
