@@ -3,7 +3,7 @@ import App from './App.vue'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
 import { WebSocketLink } from 'apollo-link-ws'
 import { ApolloLink, split } from 'apollo-link'
 import { withClientState } from 'apollo-link-state'
@@ -52,11 +52,15 @@ const link = split(
   httpLinkAuth,
 )
 
+const introspectionQueryResultData = require('./fragmentTypes.json');
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData
+});
 
 // apollo client setup
 const client = new ApolloClient({
   link: ApolloLink.from([link]),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ fragmentMatcher }),
   connectToDevTools: true,
   onError: (e) => { console.log(e) }
 })
