@@ -54,6 +54,7 @@
         id
         UDTNumber
         serialNumber
+        registrationNumber
         type {
           id
           preferedName
@@ -75,6 +76,7 @@
       columns: [
         { label: 'Numer UDT', field: 'UDTNumber' },
         { label: 'Numer seryjny', field: 'serialNumber' },
+        { label: 'Rejestracja', field: 'registrationNumber' },
         { label: 'Właściciel', field: 'owner.name' },
         { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
         { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
