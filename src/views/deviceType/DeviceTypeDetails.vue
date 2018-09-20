@@ -6,41 +6,45 @@
 
   <template v-else>
     <h1>Urządzenia rodzaju {{ deviceType.preferedName ? deviceType.preferedName : deviceType.name }}</h1>
-    <table>
-      <tr>
-        <th>Id</th>
-        <th>Właściciel</th>
-        <th>Typ</th>
-      </tr>
-
-      <tr v-for="device in devices" :key="device.id">
-        <td><router-link :to="{ name: 'DeviceDetails', params: { id: device.id }}">{{ device.id }}</router-link></td>
-        <td><router-link :to="{ name: 'CustomerDetails', params: { id: device.owner.id }}">{{ device.owner.name }}</router-link></td>
-        <td>{{device.type.name}}</td>
-      </tr>
-
-    </table>
+    <VueGoodTable
+      :columns="columns"
+      :rows="devices"
+      :lineNumbers="true"
+      @on-row-click="onRowClick"
+    />
   </template>
 </div>
 </template>
 
 <script>
-  import Loader from '@/components/Loader'
   import gql from 'graphql-tag'
+
+  import Loader from '@/components/Loader'
+  import { VueGoodTable } from 'vue-good-table'
+  import 'vue-good-table/dist/vue-good-table.css'
+
+  import moment from 'moment'
+  import pl from 'moment/locale/pl'
+  moment.locale('pl')
 
   // GraphQL query
   const DEVICES_QUERY = gql `
     query DevicesQuery($type: ID!) {
       devices(type: $type) {
         id
+        UDTNumber
+        serialNumber
         type {
           id
+          preferedName
           name
         }
         owner {
           id
           name
         }
+        nextUDT
+        nextConservation
       }
     }
   `
@@ -55,11 +59,25 @@
   `
 
   export default {
-    components: { Loader },
+    components: { Loader, VueGoodTable },
     data: () => ({
       devices: {},
-      deviceType: {}
+      deviceType: {},
+      columns: [
+        { label: 'Numer UDT', field: 'UDTNumber' },
+        { label: 'Numer seryjny', field: 'serialNumber' },
+        { label: 'Właściciel', field: 'owner.name' },
+        { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
+        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
+        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
+      ],
     }),
+
+    methods: {
+      onRowClick({ row }) {
+        this.$router.push({ name: 'DeviceDetails', params: { id: row.id }})
+      }
+    },
 
     // query data
     apollo: {
