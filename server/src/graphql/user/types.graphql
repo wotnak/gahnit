@@ -1,0 +1,10 @@
+type User {
+  id: ID!
+  username: String!
+  displayName: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}

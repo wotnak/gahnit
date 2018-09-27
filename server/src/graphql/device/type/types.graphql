@@ -1,0 +1,7 @@
+type DeviceType {
+  id: ID!
+  name: String!
+  preferedName: String
+  conservationEveryNDays: Int
+  udtEveryNDays: Int
+}

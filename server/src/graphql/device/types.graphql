@@ -1,0 +1,23 @@
+type Device {
+  id: ID!
+  type: DeviceType!
+
+  serialNumber: String
+  UDTNumber: String
+  registrationNumber: String
+
+  productionYear: String
+  producent: String
+  producentNumber: String
+
+  capacity: String
+
+  nextUDT: String
+  nextConservation: String
+
+  owner: Customer!
+
+  notes: String
+
+  actions: [Action!]!
+}

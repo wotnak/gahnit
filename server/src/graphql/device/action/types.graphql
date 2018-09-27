@@ -1,0 +1,35 @@
+interface Action {
+  id: ID!
+  date: String!
+  description: String
+  device: Device!
+  customer: Customer!
+}
+
+type Conservation implements Action {
+  id: ID!
+  date: String!
+  description: String
+  device: Device!
+  customer: Customer!
+  elements: [Element!]!
+  employee: String
+  start: String
+  end: String
+}
+
+type Element {
+  id: ID!
+  name: String
+  amount: Float
+  price: Float
+}
+
+type UDT implements Action {
+  id: ID!
+  date: String!
+  description: String
+  device: Device!
+  customer: Customer!
+  inspector: String!
+}

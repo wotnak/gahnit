@@ -1,0 +1,4 @@
+type Query {
+  deviceTypes(limit: Int, offset: Int): [DeviceType!]!
+  deviceType(id: ID!): DeviceType!
+}

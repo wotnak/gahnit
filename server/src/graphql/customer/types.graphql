@@ -1,0 +1,19 @@
+type Customer {
+  id: ID!
+  name: String!
+  symbol: String!
+  nip: String
+  regon: String
+  address: Address!
+  devices: [Device!]!
+}
+
+type Address {
+  country: String!
+  city: String!
+  street: String
+  building: String!
+  apartment: String
+  postCode: String!
+  postDepartment: String
+}
