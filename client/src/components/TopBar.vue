@@ -1,19 +1,16 @@
 <template>
   <div id="topbar">
     <h2>Gahnit</h2>
-    <!-- <SearchBar/> -->
     <UserMenu/>
   </div>
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar.vue';
 import UserMenu from '@/components/UserMenu.vue';
 
 export default {
   name: 'topbar',
   components: {
-    SearchBar,
     UserMenu
   },
 };
