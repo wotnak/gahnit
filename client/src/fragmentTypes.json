@@ -1,0 +1,1 @@
+{"__schema":{"types":[{"kind":"INTERFACE","name":"Action","possibleTypes":[{"name":"Conservation"},{"name":"UDT"}]},{"kind":"UNION","name":"SearchResult","possibleTypes":[{"name":"Device"},{"name":"Customer"}]}]}}
