@@ -16,16 +16,18 @@ const deviceSchema = mongoose.Schema({
 
   owner: String,
 
-  notes: String,
+  notes: [{
+    revisions: [{
+      author: String,
+      timestamp: String,
+      content: String
+    }]
+  }],
 
   actions: [String]
 
 })
  
 deviceSchema.plugin(mongooseLeanId)
-deviceSchema.index(
-  { serialNumber: 'text', UDTNumber: 'text', registrationNumber: 'text', productionYear: 'text', producent: 'text', producentNumber: 'text', capacity: 'text' },
-  { name: 'search' }
-  )
 
 export const Device = mongoose.model('Device', deviceSchema)
