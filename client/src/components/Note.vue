@@ -64,9 +64,28 @@
         }
         this.$apollo.mutate({
           mutation: DELETE_NOTE,
-          variables
-        }).then((data) => {
-          this.$router.go({ name: 'DeviceDetails', params: { id: this.device } })
+          variables,
+          refetchQueries: [{
+            query: gql`
+              query UpdateCache($id: ID!) {
+                device(id: $id) {
+                  id
+                  notes {
+                    id
+                    current {
+                      timestamp
+                      content
+                      author {
+                        id
+                        displayName
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            variables: { id: this.device },
+          }],
         }).catch((error) => {
           alert(error)
           console.error(error)
