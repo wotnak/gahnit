@@ -110,14 +110,25 @@ export const resolver = {
     modifyDeviceNote: async (parent, {device, note, data}, ctx, info) => {
       const notedDevice = await Device.findById(device)
       const now = new Date()
-      const modifiedNote = notedDevice.notes.get({_id: note})
+      const modifiedNote = notedDevice.notes.find((el) => { return el._id == note } )
       modifiedNote.revisions.push({
-        author: data.author,
+        author: getUserId(ctx),
         content: data.content,
         timestamp: `${now.toISOString().substring(0, 10)} ${now.toTimeString().substring(0,17)}`
       })
       await notedDevice.save()
-      return modifiedNote
+      const updatedDevice = await Device.findById(device).lean()
+      const almostReadyNote = updatedDevice.notes.find((el) => { return el._id == note } )
+
+      almostReadyNote.id = almostReadyNote._id
+      delete almostReadyNote._id
+      for (const revision of almostReadyNote.revisions) {
+        const user = User.findById(revision.author).lean()
+        revision.author = user
+      }
+      almostReadyNote.current = almostReadyNote.revisions[almostReadyNote.revisions.length-1]
+
+      return almostReadyNote
     }
 
   }
