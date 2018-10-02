@@ -1,0 +1,11 @@
+type Note {
+  id: ID!
+  current: NoteRevision!
+  revisions: [NoteRevision!]!
+}
+
+type NoteRevision {
+  author: User
+  content: String
+  timestamp: String
+}

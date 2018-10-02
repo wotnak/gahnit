@@ -38,10 +38,7 @@
     </ul>
     <div class="notesCont">
       <h3>Notatki</h3>
-      <form @submit.prevent="saveNotes(device.id, notes)">
-        <textarea id="notes" v-model="notes" rows="32"></textarea>
-        <button>Zapisz</button>
-      </form>
+      <NotesList :device="device.id" :notes="device.notes"/>
     </div>
   </template>
 </div>
@@ -52,17 +49,10 @@
   right: 20px
   top: 50px
   width: calc(100vw - 900px)
-  
-  textarea
-    font-family: inherit
-    border: none
-    background-color: #c6c8ca
-    padding: 5px
-    border-radius: 2px
-    font-size: inherit
 </style>
 <script>
   import Loader from '@/components/Loader'
+  import NotesList from '@/components/NotesList'
 
   import moment from 'moment'
   import pl from 'moment/locale/pl'
@@ -83,7 +73,6 @@
         capacity
         nextUDT
         nextConservation
-        notes
         type {
           id
           name
@@ -100,6 +89,17 @@
           date
           ...on UDT {
             inspector
+          }
+        }
+        notes {
+          id
+          current {
+            timestamp
+            content
+            author {
+              id
+              displayName
+            }
           }
         }
       }
@@ -130,10 +130,9 @@
   `
 
   export default {
-    components: { Loader },
+    components: { Loader, NotesList },
     data: () => ({
       device: {},
-      notes: "",
     }),
 
     apollo: {

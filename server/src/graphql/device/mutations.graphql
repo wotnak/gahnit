@@ -24,6 +24,9 @@ type Mutation {
   ): Device!
   updateDevice(id: ID!, data: DeviceUpdateInput!): Device!
   deleteDevice(id: ID!): Device!
+  addDeviceNote(device: ID!, data: NoteInput!): Note!
+  deleteDeviceNote(device: ID!, note: ID!): Note!
+  modifyDeviceNote(device: ID!, note: ID!, data: NoteInput!): Note!
 }
 
 input DeviceUpdateInput {
@@ -36,5 +39,4 @@ input DeviceUpdateInput {
   capacity: String
   type: ID
   owner: ID
-  notes: String
 }
