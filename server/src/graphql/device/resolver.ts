@@ -75,14 +75,13 @@ export const resolver = {
       const device = await Device.findById(id)
       device.set({...data})
       await device.save()
-      return device
+      return await resolver.Query.device(parent, { id }, ctx, info)
     },
     deleteDevice: async (parent, { id }, ctx, info) => {
+      const deletedDevice = await resolver.Query.device(parent, { id }, ctx, info)
       const device = await Device.findById(id)
       await device.remove()
-      const normDevice = device.toObject()
-      normDevice.id = device._id
-      return normDevice
+      return deletedDevice
     },
     addDeviceNote: async (parent, {device, data}, ctx, info) => {
       const notedDevice = await Device.findById(device)

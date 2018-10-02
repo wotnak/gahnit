@@ -51,6 +51,22 @@
     mutation UpdateDeviceMutation($id: ID!, $data: DeviceUpdateInput!) {
       updateDevice(id: $id, data: $data) {
         id
+        serialNumber
+        UDTNumber
+        registrationNumber
+        productionYear
+        producent
+        producentNumber
+        capacity
+        nextUDT
+        nextConservation
+        type {
+          id
+          name
+          preferedName
+          conservationEveryNDays
+          udtEveryNDays
+        }
       }
     }
   `
