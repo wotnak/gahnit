@@ -7,7 +7,7 @@
   <li>
     <form class="note" @submit.prevent="newNote">
       <textarea id="content" v-model="content" required></textarea>
-      <button>Zapisz</button>
+      <button>Dodaj</button>
     </form>
   </li>
 </ul>
