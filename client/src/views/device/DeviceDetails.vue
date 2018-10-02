@@ -4,6 +4,11 @@
     <Loader/>
   </template>
 
+  <template v-else-if="error.hasOwnProperty('gqlError')">
+    <h1>{{error.gqlError.message}}</h1>
+    
+  </template>
+
   <template v-else>
     <router-link :to="{ name: 'DeviceEdit', params: { id: device.id }}"  tag="button">Edytuj</router-link>
     <button @click="deleteDevice(device.id)">Usun</button>
@@ -133,6 +138,7 @@
     components: { Loader, NotesList },
     data: () => ({
       device: {},
+      error: {}
     }),
 
     apollo: {
@@ -146,6 +152,9 @@
           this.notes = notes
           return device
         },
+        error(error) {
+          this.error = error
+        }
       },
     },
 

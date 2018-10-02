@@ -29,6 +29,7 @@ export const resolver = {
     },
     device: async (parent, { id }, ctx, info) => {
       const device = await Device.findById(id).lean()
+      if (!device) throw "Device not found."
       const type = await DeviceType.findById(device.type).lean()
       device.type = type
       const owner = await Customer.Query.customer({}, { id: device.owner }, {}, {})
