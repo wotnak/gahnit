@@ -38,7 +38,7 @@
     </ul>
     <div class="notesCont">
       <h3>Notatki</h3>
-      <NotesList :notes="device.notes"/>
+      <NotesList :device="device.id" :notes="device.notes"/>
     </div>
   </template>
 </div>

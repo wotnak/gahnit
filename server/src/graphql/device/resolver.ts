@@ -3,7 +3,7 @@ import {DeviceType} from '../../data/DeviceType'
 import {Action} from '../../data/Action'
 import {User} from '../../data/User'
 import {resolver as Customer} from '../customer/resolver'
-import { nextTerms } from '../../utils'
+import { nextTerms, getUserId } from '../../utils'
 import {resolver as actionResolver} from './action/resolver'
 
 export const resolver = {
@@ -47,7 +47,6 @@ export const resolver = {
           revision.author = user
         }
         note.current = note.revisions[note.revisions.length-1]
-
       }
       return device
     },
@@ -90,7 +89,7 @@ export const resolver = {
       const note = {
         revisions: [
           {
-            author: data.author,
+            author: getUserId(ctx),
             content: data.content,
             timestamp: `${now.toISOString().substring(0, 10)} ${now.toTimeString().substring(0,17)}`
           }
@@ -101,12 +100,24 @@ export const resolver = {
       return notedDevice.notes[0]
     },
     deleteDeviceNote: async (parent, {device, note}, ctx, info) => {
-      await Device.update( {id: device}, { $pullAll: {id: [note] } } )
-      return null
+      const notedDevice = await Device.findById(device)
+      const deletedNote = notedDevice.notes.find((el) => { return el._id == note } )
+      notedDevice.notes.splice(notedDevice.notes.indexOf(deletedNote), 1)
+      await notedDevice.save()
+      return deletedNote
 
     },
     modifyDeviceNote: async (parent, {device, note, data}, ctx, info) => {
-      return null
+      const notedDevice = await Device.findById(device)
+      const now = new Date()
+      const modifiedNote = notedDevice.notes.get({_id: note})
+      modifiedNote.revisions.push({
+        author: data.author,
+        content: data.content,
+        timestamp: `${now.toISOString().substring(0, 10)} ${now.toTimeString().substring(0,17)}`
+      })
+      await notedDevice.save()
+      return modifiedNote
     }
 
   }
