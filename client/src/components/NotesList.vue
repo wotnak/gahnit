@@ -27,6 +27,7 @@
     height: 100px
     font-family: inherit
     font-size: inherit
+    border: solid 1px
     border-color: inherit
     resize: none
     border-radius: 2px
