@@ -7,6 +7,10 @@
   <template v-else>
     <h1>Klienci</h1>
 
+<div class="sync">
+  <button v-if="syncing" class="syncing" disabled>Synchronizacja z subiektem...</button>
+  <button v-else @click="syncWithSubiekt()">Synchronizuj z subiektem</button>
+</div>
     <VueGoodTable
       :columns="columns"
       :rows="customers"
@@ -35,7 +39,14 @@
   </template>
 </div>
 </template>
-
+<style lang="stylus" scoped>
+.sync
+  position: absolute
+  right: 10px
+  top: 50px
+  .syncing
+    cursor: wait
+</style>
 <script>
   import gql from 'graphql-tag'
 
@@ -53,6 +64,12 @@
     }
   `
 
+  const SYNC_WITH_SUBIEKT_MUTATION = gql`
+    mutation syncWithSubiekt {
+      syncWithSubiekt
+    }
+  `
+
   export default {
     components: { Loader, VueGoodTable },
     data: () => ({
@@ -61,13 +78,25 @@
         { label: 'Nazwa', field: 'name'}
       ],
       customers: {},
+      syncing: false
     }),
 
     methods: {
       onRowClick({ row }) {
-
         this.$router.push({ name: 'CustomerDetails', params: { id: row.id }})
+      },
+      syncWithSubiekt() {
+        this.syncing = true
+        this.$apollo.mutate({
+          mutation: SYNC_WITH_SUBIEKT_MUTATION
+        }).then(()=>{
+          this.syncing = false
+        }).catch((error) => {
+          alert(error)
+          console.error(error)
+        })
       }
+
     },
 
     // query data

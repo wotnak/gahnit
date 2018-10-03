@@ -60,6 +60,11 @@ button
   
   &:hover
     background-color: darken(dark, 10)
+    
+  &[disabled]
+    opacity: .6
+    &:hover
+      background-color: dark
 
 .invert
   filter: invert(100)
