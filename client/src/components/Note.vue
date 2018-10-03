@@ -86,7 +86,7 @@
     }),
     methods: {
       getTime(timestamp) {
-        return moment(timestamp).format("H:mm, D/MM/YYYY")
+        return moment(timestamp, "DD-MM-YYYY HH:mm:ss GMTZZ").format("H:mm, D/MM/YYYY")
       },
       deleteNote(noteId) {
         const variables = {
