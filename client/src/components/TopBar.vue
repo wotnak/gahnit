@@ -14,7 +14,8 @@ import UserMenu from '@/components/UserMenu.vue';
 export default {
   name: 'topbar',
   components: {
-    UserMenu
+    UserMenu,
+    SearchBar,
   },
 };
 </script>

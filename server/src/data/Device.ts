@@ -4,13 +4,13 @@ import * as mongooseLeanId from 'mongoose-lean-id'
 const deviceSchema = mongoose.Schema({
   type: String,
 
-  serialNumber: String,
-  UDTNumber: String,
-  registrationNumber: String,
+  serialNumber: { type: String, text: true },
+  UDTNumber: { type: String, text: true },
+  registrationNumber: { type: String, text: true },
 
-  productionYear: String,
-  producent: String,
-  producentNumber: String,
+  productionYear: { type: String, text: true },
+  producent: { type: String, text: true },
+  producentNumber: { type: String, text: true },
 
   capacity: String,
 

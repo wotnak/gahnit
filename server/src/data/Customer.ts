@@ -3,13 +3,13 @@ import * as mongooseLeanId from 'mongoose-lean-id'
 
 const customerSchema = mongoose.Schema({
   subiektId: String,
-  name: String,
-  symbol: String,
-  nip: String,
-  regon: String,
+  name: { type: String, text: true },
+  symbol: { type: String, text: true },
+  nip: { type: String, text: true },
+  regon: { type: String, text: true },
   address: {
     country: String,
-    city: String,
+    city: { type: String, text: true },
     street: String,
     building: String,
     apartment: String,
