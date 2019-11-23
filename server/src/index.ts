@@ -18,9 +18,11 @@ mongoose.connect(process.env.MONGODB_CONNECTION_URL, { useNewUrlParser: true, au
 				.catch(err => console.log(err))
 				.then(console.log("Successfully connected to mongodb server."))		
 
+/*
 // connect to subiekt database
 sql.connect(process.env.SUBIEKT_INTEGRATION_DB_CONNECTION_URL)
 				.catch(err => console.log(err))
 				.then(console.log("Successfully connected to subiektgt server."))
+*/
 
 server.start(() => console.log('Server is running on http://localhost:4000'))

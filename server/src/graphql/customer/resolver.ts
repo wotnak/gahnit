@@ -50,6 +50,7 @@ export const resolver = {
 
   Mutation: {
     syncWithSubiekt: async (parent, data, ctx, info) => {
+      /*
       let query = `SELECT
                       adr_IdObiektu AS id,
                       adr_Nazwa AS name,
@@ -83,6 +84,7 @@ export const resolver = {
           await action.save()
         }))
       }))
+      */
     }
   }
 
