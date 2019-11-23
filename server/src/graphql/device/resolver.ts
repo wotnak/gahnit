@@ -2,7 +2,7 @@ import {Device} from '../../data/Device'
 import {DeviceType} from '../../data/DeviceType'
 import {Action} from '../../data/Action'
 import {User} from '../../data/User'
-import {resolver as Customer} from '../customer/resolver'
+import {Customer} from '../../data/Customer'
 import { nextTerms, getUserId } from '../../utils'
 import {resolver as actionResolver} from './action/resolver'
 
@@ -17,7 +17,7 @@ export const resolver = {
       await Promise.all(devices.map(async device => {
         const deviceType = await DeviceType.findById(device.type).lean()
         device.type = deviceType
-        const owner = await Customer.Query.customer({}, { id: device.owner }, {}, {})
+        const owner = await Customer.findOne({subiektId: device.owner }).lean()
         device.owner = owner
         const actions = await Action.find({device: device.id}).lean()
         device.actions = actions
@@ -32,7 +32,7 @@ export const resolver = {
       if (!device) throw "Device not found."
       const type = await DeviceType.findById(device.type).lean()
       device.type = type
-      const owner = await Customer.Query.customer({}, { id: device.owner }, {}, {})
+      const owner = await Customer.findOne({ subiektId: device.owner }).lean()
       device.owner = owner
       const actions = await Action.find({device: device.id}).lean()
       device.actions = actions
