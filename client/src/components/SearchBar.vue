@@ -104,6 +104,7 @@ form
   `
 
   export default {
+    name: 'SearchBar',
     data: () => ({
       showResults: false,
       results: [],
