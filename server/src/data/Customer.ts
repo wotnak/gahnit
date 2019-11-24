@@ -24,7 +24,7 @@ customerSchema.index({
   nip: 'text',
   regon: 'text',
   'address.city': 'text',
-});
+}, {name: 'search'});
 
 customerSchema.plugin(mongooseLeanId)
 

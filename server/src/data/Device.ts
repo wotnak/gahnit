@@ -35,7 +35,7 @@ deviceSchema.index({
   productionYear: 'text',
   producent: 'text',
   producentNumber: 'text',
-});
+}, {name: 'search'});
  
 deviceSchema.plugin(mongooseLeanId)
 
