@@ -10,7 +10,7 @@ export const resolver = {
   // Queries
   Query: {
     customers: async (parent, {limit, offset}, ctx, info) => {
-      const customers = (limit && offset) ?
+      const customers = (limit !== undefined && offset !== undefined) ?
                                   await Customer.find().limit(limit).skip(offset).lean()
                                   : await Customer.find().lean()
 

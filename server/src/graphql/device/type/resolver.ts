@@ -4,7 +4,7 @@ export const resolver = {
   // Queries
   Query: {
     deviceTypes: async (parent, {limit, offset}, ctx, info) => {
-      const types = (limit && offset) ? await DeviceType.find().limit(limit).skip(offset).lean() : await DeviceType.find().lean()
+      const types = (limit !== undefined && offset !== undefined) ? await DeviceType.find().limit(limit).skip(offset).lean() : await DeviceType.find().lean()
       return types
     },
 

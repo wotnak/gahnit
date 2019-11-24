@@ -11,7 +11,7 @@ export const resolver = {
   Query: {
     devices: async (parent, { type, limit, offset }, ctx, info) => {
       const filter = (type != undefined) ? {type} : null
-      const devices = (limit && offset) ?
+      const devices = (limit !== undefined && offset !== undefined) ?
                                   await Device.find(filter).limit(limit).skip(offset).lean()
                                   : await Device.find(filter).lean()
       await Promise.all(devices.map(async device => {
