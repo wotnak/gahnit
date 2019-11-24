@@ -1,7 +1,7 @@
 <template>
 <div>
   <form @submit.prevent="search()">
-    <input type="text" id="query" v-model="query" required @click="() => {this.showResults = true}" /> <button>Szukaj</button>
+    <input type="text" id="query" v-model="query" required /> <button>Szukaj</button>
   </form>
   <div v-show="showResults" id="searchResultsBg" @click="() => {this.showResults = false}"></div>
   <div v-show="showResults" class="results" id="searchResults">
