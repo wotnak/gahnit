@@ -3,13 +3,13 @@ import * as mongooseLeanId from 'mongoose-lean-id'
 
 const customerSchema = mongoose.Schema({
   subiektId: String,
-  name: { type: String, text: true },
-  symbol: { type: String, text: true },
-  nip: { type: String, text: true },
-  regon: { type: String, text: true },
+  name: String,
+  symbol: String,
+  nip: String,
+  regon: String,
   address: {
     country: String,
-    city: { type: String, text: true },
+    city: String,
     street: String,
     building: String,
     apartment: String,
@@ -17,6 +17,14 @@ const customerSchema = mongoose.Schema({
     postDepartment: String
   }
 })
+
+customerSchema.index({
+  name: 'text',
+  symbol: 'text',
+  nip: 'text',
+  regon: 'text',
+  'address.city': 'text',
+});
 
 customerSchema.plugin(mongooseLeanId)
 
