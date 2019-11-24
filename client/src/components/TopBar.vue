@@ -2,7 +2,7 @@
   <div id="topbar">
     <h2>Gahnit</h2>
     <SearchBar/>
-    <router-link to="/devices/new">Dodaj Urządzenie</router-link>
+    <router-link to="/devices/new" tag="button" class="invert">Dodaj Urządzenie</router-link>
     <UserMenu/>
   </div>
 </template>
