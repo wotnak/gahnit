@@ -40,7 +40,7 @@ export default new Router({
 
     // Customers
     {
-      path: '/customers',
+      path: '/customers/:page?',
       name: 'CustomerList',
       secure: true,
       component: CustomerList,
@@ -54,7 +54,7 @@ export default new Router({
 
     // Devices
     {
-      path: '/devices',
+      path: '/devices/:page?',
       name: 'DeviceList',
       secure: true,
       component: DeviceList,

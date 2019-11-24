@@ -8,29 +8,15 @@
     <router-link :to="{ name: 'DeviceNew'}" tag="button">Dodaj nowe</router-link>
     <h1>Urządzenia</h1>
 
+    <router-link v-if="parseInt($route.params.page) > 2" :to="`/devices/` + (parseInt($route.params.page) - 1)" tag="button" >Poprzednia strona</router-link>
+    <router-link v-else-if="parseInt($route.params.page) === 2" to="/devices" tag="button" >Poprzednia strona</router-link>
+    <router-link :to="`/devices/` + ($route.params.page !== undefined ? parseInt($route.params.page) + 1 : 2)" tag="button" >Następna strona</router-link>
+
     <VueGoodTable
       :columns="columns"
       :rows="devices"
       :lineNumbers="true"
       @on-row-click="onRowClick"
-      :pagination-options="{
-        enabled: true,
-        mode: 'records',
-        perPage: 25,
-        position: 'bottom',
-        perPageDropdown: [25, 50, 100],
-        dropdownAllowAll: false,
-        nextLabel: 'następna',
-        prevLabel: 'poprzednia',
-        rowsPerPageLabel: 'Wiersze na stronę',
-        ofLabel: 'z',
-        pageLabel: 'strona'
-      }"
-      :search-options="{
-        enabled: true,
-        trigger: 'enter',
-        placeholder: 'Szukaj (wpisz szukaną frazę i wciśnij enter aby wyszukać)',
-      }"
     />
 
   </template>
@@ -49,8 +35,8 @@
   moment.locale('pl')
 
   const DEVICES_QUERY = gql `
-    query DevicesQuery {
-      devices {
+    query DevicesQuery($limit: Int!, $offset: Int!) {
+      devices(limit: $limit, offset: $offset) {
         id
         UDTNumber
         serialNumber
@@ -92,7 +78,8 @@
         { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: formatNextActionDate },
         { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: formatNextActionDate }
       ],
-      devices: []
+      devices: [],
+      perPage: 25,
     }),
 
     methods: {
@@ -104,7 +91,14 @@
     // query data
     apollo: {
       devices: {
-        query: DEVICES_QUERY
+        query: DEVICES_QUERY,
+        variables() {
+          const currentPage = this.$route.params.page !== undefined ? this.$route.params.page : 1
+          return {
+            offset: this.perPage * (currentPage - 1),
+            limit: this.perPage
+          }
+        }
       }
     }
   }
