@@ -54,36 +54,11 @@ export default new Router({
 
     // Devices
     {
-      path: '/devices/:page?',
-      name: 'DeviceList',
-      secure: true,
-      component: DeviceList,
-    },
-    {
       path: '/devices/new',
       name: 'DeviceNew',
       secure: true,
       component: DeviceNew,
     },
-    {
-      path: '/device/:id',
-      name: 'DeviceDetails',
-      secure: true,
-      component: DeviceDetails,
-    },
-    {
-      path: '/device/:id/newAction',
-      name: 'ActionNew',
-      secure: true,
-      component: ActionNew,
-    },
-    {
-      path: '/device/:id/edit',
-      name: 'DeviceEdit',
-      secure: true,
-      component: DeviceEdit,
-    },
-    // Device types
     {
       path: '/devices/types',
       name: 'DeviceTypeList',
@@ -107,6 +82,30 @@ export default new Router({
       name: 'DeviceTypeEdit',
       secure: true,
       component: DeviceTypeEdit,
+    },
+    {
+      path: '/devices/:page?',
+      name: 'DeviceList',
+      secure: true,
+      component: DeviceList,
+    },
+    {
+      path: '/device/:id',
+      name: 'DeviceDetails',
+      secure: true,
+      component: DeviceDetails,
+    },
+    {
+      path: '/device/:id/newAction',
+      name: 'ActionNew',
+      secure: true,
+      component: ActionNew,
+    },
+    {
+      path: '/device/:id/edit',
+      name: 'DeviceEdit',
+      secure: true,
+      component: DeviceEdit,
     },
 
     // Users
