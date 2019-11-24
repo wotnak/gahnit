@@ -26,8 +26,13 @@
     </ul>
     <h4>Nadchodzące terminy</h4>
     <ul>
-      <li v-for="term in getAproachingTerms()">
-        {{ term.type }} - {{ term.nextDate }} ({{ term.exact }})
+      <li v-for="term in getAproachingTerms()" :key="term.type">
+        <span v-if="term.nextDate !== null">
+          {{ term.type }} - {{ term.nextDate }} ({{ term.exact }})
+        </span>
+        <span v-else>
+          {{ term.type }} - brak danych
+        </span>
       </li>
     </ul>
     <h4>
@@ -171,16 +176,28 @@
         })
       },
       getAproachingTerms() {
-        const now = moment()
-        const nextConservationDate = moment(this.device.nextConservation)
-        const nextUDTDate = moment(this.device.nextUDT)
 
-        const tillNextUDT = now.isSame(nextUDTDate, 'day') ? 'dzisiaj' : now.to(nextUDTDate)
-        const tillNextConservation = now.isSame(nextConservationDate, 'day') ? 'dzisiaj' : now.to(nextConservationDate)
+        const now = moment()
+
+        let nextConservationDate = null
+        let tillNextConservation = null
+        if (this.device.nextConservation !== null) {
+          nextConservationDate = moment(this.device.nextConservation)
+          tillNextConservation = now.isSame(nextConservationDate, 'day') ? 'dzisiaj' : now.to(nextConservationDate)
+          nextConservationDate = nextConservationDate.format("MM/YYYY")
+        }
+
+        const nextUDTDate = null
+        const tillNextUDT =  null
+        if (this.device.nextUDTDate) {
+          nextUDTDate = moment(this.device.nextUDT)
+          tillNextUDT = now.isSame(nextUDTDate, 'day') ? 'dzisiaj' : now.to(nextUDTDate)
+          nextUDTDate = nextUDTDate.format("MM/YYYY")
+        }
 
         return [
-          { type: "Konserwacja", nextDate: tillNextConservation, exact: nextConservationDate.format("MM/YYYY") },
-          { type: "Odbiór UDT", nextDate: tillNextUDT, exact: nextUDTDate.format("MM/YYYY") }
+          { type: "Konserwacja", nextDate: tillNextConservation, exact: nextConservationDate },
+          { type: "Odbiór UDT", nextDate: tillNextUDT, exact: nextUDTDate }
         ]
 
       },

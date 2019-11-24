@@ -70,6 +70,16 @@
     }
   `
 
+  const formatNextActionDate = (date) => {
+    if (date === null) {
+      return 'brak danych'
+    } else {
+      const nextDate = moment(date)
+      const today = moment()
+      return today.to(nextDate)
+    }
+  }
+
   export default {
     components: { Loader, VueGoodTable },
     data: () => ({
@@ -79,8 +89,8 @@
         { label: 'Rejestracja', field: 'registrationNumber' },
         { label: 'Właściciel', field: 'owner.name' },
         { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
-        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
-        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
+        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: formatNextActionDate },
+        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: formatNextActionDate }
       ],
       devices: []
     }),
