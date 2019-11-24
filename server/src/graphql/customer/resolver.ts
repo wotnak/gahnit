@@ -34,8 +34,8 @@ export const resolver = {
     },
     customer: async (parent, { id }, ctx, info) => {
       const customer = await Customer.findById(id).lean()
-      customer.devices = await Device.find({owner: customer.id}).lean()
-      await Promise.all(customer.devices.map(async device => {
+      const devices = await Device.find({owner: customer.id}).lean()
+      await Promise.all(devices.map(async device => {
         const deviceType = await DeviceType.findById(device.type).lean()
         device.type = deviceType
         const actions = await Action.find({device: device.id}).lean()
@@ -44,6 +44,7 @@ export const resolver = {
         device.nextUDT = terms.udt
         device.nextConservation = terms.conservation
       }))
+      customer.devices = devices
       return customer
     }
   },
