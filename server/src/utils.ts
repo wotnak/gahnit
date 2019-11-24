@@ -5,14 +5,13 @@ import pl from 'moment/locale/pl'
 moment.locale('pl')
 
 export const nextTerms = (actions, conservationEveryNDays = 0, udtEveryNDays = 0) => {
-  const now = moment()
   const conservations = actions.filter((a) => { return a.type=="conservation" } ).sort( (a,b) => { return moment(a.date).isBefore(moment(b.date)) } )
   const udts = actions.filter((a) => { return a.type=="udt" } ).sort( (a,b) => { return moment(a.date).isBefore(moment(b.date)) } )
-  const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd') : now
-  const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd') : now
+  const nextUDTDate = udts[0] != undefined ? moment(udts[0].date).add(udtEveryNDays, 'd').format("YYYY-MM-DD") : null
+  const nextConservationDate = conservations[0] != undefined ? moment(conservations[0].date).add(conservationEveryNDays, 'd').format("YYYY-MM-DD") : null
   return {
-    udt: nextUDTDate.format("YYYY-MM-DD"),
-    conservation: nextConservationDate.format("YYYY-MM-DD")
+    udt: nextUDTDate,
+    conservation: nextConservationDate,
   }
 }
 
