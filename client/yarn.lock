@@ -953,8 +953,8 @@ acorn-dynamic-import@^3.0.0:
     acorn "^5.0.0"
 
 acorn@^5.0.0, acorn@^5.3.0, acorn@^5.6.2, acorn@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.4.tgz#3e8d8a9947d0599a1796d10225d7432f4a4acf5e"
 
 address@^1.0.3:
   version "1.0.3"
@@ -3095,7 +3095,7 @@ graphql-tag@^2.9.2:
 
 graphql-tools@2.21.0:
   version "2.21.0"
-  resolved "http://registry.npmjs.org/graphql-tools/-/graphql-tools-2.21.0.tgz#c0d0fbda6f40a87c8d267a2989ade2ae8b9a288e"
+  resolved "https://registry.npmjs.org/graphql-tools/-/graphql-tools-2.21.0.tgz#c0d0fbda6f40a87c8d267a2989ade2ae8b9a288e"
   dependencies:
     apollo-link "^1.1.0"
     apollo-utilities "^1.0.1"
@@ -3105,7 +3105,7 @@ graphql-tools@2.21.0:
 
 graphql@0.13.1:
   version "0.13.1"
-  resolved "http://registry.npmjs.org/graphql/-/graphql-0.13.1.tgz#9b3db3d8e40d1827e4172404bfdd2e4e17a58b55"
+  resolved "https://registry.npmjs.org/graphql/-/graphql-0.13.1.tgz#9b3db3d8e40d1827e4172404bfdd2e4e17a58b55"
   dependencies:
     iterall "^1.2.0"
 
