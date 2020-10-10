@@ -14,33 +14,34 @@
 
 </template>
 
-<style lang="stylus">
-.notesList
-  list-style-type: none
-  padding: 0
-  
-  li
-    margin-bottom: 5px
-    
-  textarea
-    box-sizing: border-box
-    height: 100px
-    font-family: inherit
-    font-size: inherit
-    border: solid 1px
-    border-color: inherit
-    resize: none
-    border-radius: 2px
-    transition: border-color .3s cubic-bezier(0.4, 0, 1, 1)
-    &:focus
-      outline: none
-      border-color: #1d2227
-      transition: border-color .3s cubic-bezier(0.4, 0, 1, 1)
-    
+<style>
+.notesList {
+  list-style-type: none;
+  padding: 0;
+}
+.notesList li {
+  margin-bottom: 5px;
+}
+.notesList textarea {
+  box-sizing: border-box;
+  height: 100px;
+  font-family: inherit;
+  font-size: inherit;
+  border: solid 1px;
+  border-color: inherit;
+  resize: none;
+  border-radius: 2px;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+.notesList textarea:focus {
+  outline: none;
+  border-color: #1d2227;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
 </style>
 
 <script>
-  import Note from "@/components/Note"
+  import Note from "./Note.vue"
 
   import gql from 'graphql-tag'
 

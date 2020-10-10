@@ -12,12 +12,12 @@
     <router-link v-else-if="parseInt($route.params.page) === 2" to="/devices" tag="button" >Poprzednia strona</router-link>
     <router-link :to="`/devices/` + ($route.params.page !== undefined ? parseInt($route.params.page) + 1 : 2)" tag="button" >Następna strona</router-link>
 
-    <VueGoodTable
+    <!-- <VueGoodTable
       :columns="columns"
       :rows="devices"
       :lineNumbers="true"
       @on-row-click="onRowClick"
-    />
+    /> -->
 
   </template>
 </div>
@@ -26,13 +26,9 @@
 <script>
   import gql from 'graphql-tag'
 
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
-  import moment from 'moment'
-  import pl from 'moment/locale/pl'
-  moment.locale('pl')
+  import dayjs from 'dayjs'
 
   const DEVICES_QUERY = gql `
     query DevicesQuery($limit: Int!, $offset: Int!) {
@@ -60,14 +56,14 @@
     if (date === null) {
       return 'brak danych'
     } else {
-      const nextDate = moment(date)
-      const today = moment()
+      const nextDate = dayjs(date)
+      const today = dayjs()
       return today.to(nextDate)
     }
   }
 
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data: () => ({
       columns: [
         { label: 'Numer UDT', field: 'UDTNumber' },

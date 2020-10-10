@@ -8,23 +8,21 @@
         v-model="name"
         placeholder="Nazwa"
         type="text"
-        value={name}
         required
       />
       <input
         v-model="nip"
         placeholder="NIP"
         type="text"
-        value={nip}
         required
       />
       <h4>Adres</h4>
-      <input v-model="address.country" placeholder="Kraj" type="text" value={address.country} required />
-      <input v-model="address.city" placeholder="Miejscowość" type="text" value={address.city} required />
-      <input v-model="address.street" placeholder="Ulica" type="text" value={address.street} />
-      <input v-model="address.building" placeholder="Budynek" type="text" value={address.building} required />
-      <input v-model="address.postCode" placeholder="Kod pocztowy" type="text" value={address.postCode} required />
-      <input v-model="address.postDepartment" placeholder="Poczta" type="text" value={address.postDepartment} />
+      <input v-model="address.country" placeholder="Kraj" type="text" required />
+      <input v-model="address.city" placeholder="Miejscowość" type="text" required />
+      <input v-model="address.street" placeholder="Ulica" type="text" />
+      <input v-model="address.building" placeholder="Budynek" type="text" required />
+      <input v-model="address.postCode" placeholder="Kod pocztowy" type="text" required />
+      <input v-model="address.postDepartment" placeholder="Poczta" type="text" />
 
       <button>Dodaj</button>
     </form>
@@ -115,7 +113,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>

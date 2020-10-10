@@ -33,14 +33,14 @@
         </select>
 
         <label for="owner">Właściciel</label>
-        <model-list-select
+        <!-- <model-list-select
           id="owner"
           :list="customers"
           optionValue="id"
           :customText="(customer) => { return `${customer.symbol} - ${customer.name}` }"
           v-model="device.owner"
           placeholder="wybierz klienta"
-        />
+        /> -->
 
         <h3>Akcje <button type="button" @click="addAction('udt')">Dodaj UDT</button> <button type="button" @click="addAction('conservation')">Dodaj Konserwację</button></h3>
         <fieldset v-for="(action, index) in device.actions">
@@ -65,15 +65,15 @@
   </div>
 </template>
 
-<style lang="stylus" scoped>
-.ui.fluid.search.selection.dropdown
-  min-height: auto
-  width: auto
+<style scoped>
+.ui.fluid.search.selection.dropdown {
+  min-height: auto;
+  width: auto;
+}
 </style>
 
 <script>
-  import Loader from '@/components/Loader'
-  import { ModelListSelect } from 'vue-search-select'
+  import Loader from '/src/components/Loader.vue'
   import gql from 'graphql-tag'
   const CREATE_DEVICE = gql `
     mutation CreateDeviceMutation(
@@ -123,7 +123,7 @@
   `
 
   export default {
-    components: { Loader, ModelListSelect },
+    components: { Loader },
     data: () => ({
       device: { actions:[] },
       deviceTypes: {},

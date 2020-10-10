@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev": "vite",
+    "build": "vite build"
   },
   "dependencies": {
+    "@vue/apollo-composable": "^4.0.0-alpha.10",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
     "apollo-link": "^1.2.2",
@@ -15,32 +16,26 @@
     "apollo-link-state": "^0.4.1",
     "apollo-link-ws": "^1.0.8",
     "apollo-utilities": "^1.0.16",
+    "dayjs": "^1.9.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.22.2",
     "subscriptions-transport-ws": "^0.9.12",
-    "vue": "^2.5.16",
-    "vue-apollo": "^3.0.0-beta.19",
-    "vue-good-table": "^2.11.0",
-    "vue-router": "^3.0.1",
-    "vue-search-select": "^2.6.1"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-beta.13"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
-    "@vue/cli-service": "^3.0.0-rc.5",
+    "@vue/compiler-sfc": "^3.0.0",
     "fetch-fragment-matcher": "^0.1.7",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "vue-template-compiler": "^2.5.16"
-  },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
+    "vite": "^1.0.0-rc.4"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
 }

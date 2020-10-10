@@ -20,23 +20,19 @@
       </li>
     </ul>
     <h4>Urządzenia</h4>
-    <VueGoodTable
+    <!-- <VueGoodTable
       :columns="columns"
       :rows="customer.devices"
       :lineNumbers="true"
       @on-row-click="onRowClick"
-    />
+    /> -->
   </template>
 </div>
 </template>
 <script>
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
-  import moment from 'moment'
-  import pl from 'moment/locale/pl'
-  moment.locale('pl')
+  import dayjs from 'dayjs'
 
   import gql from 'graphql-tag'
 
@@ -77,7 +73,7 @@
       }
     `
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data() {
       return {
         columns: [
@@ -85,8 +81,8 @@
           { label: 'Numer UDT', field: 'UDTNumber'},
           { label: 'Numer rejestracyjny', field: 'registrationNumber'},
           { label: 'Typ', field: 'producentNumber'},
-          { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
-          { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
+          { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return dayjs().to(dayjs(date)) } },
+          { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return dayjs().to(dayjs(date)) } }
         ],
         customer: {},
         id: this.$route.params.id
@@ -104,7 +100,7 @@
 
     methods: {
       getTerm(date) {
-        return moment.now().to(moment(date))
+        return dayjs.now().to(dayjs(date))
       },
       onRowClick({ row }) {
         this.$router.push({ name: 'DeviceDetails', params: { id: row.id }})

@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-  import Loader from '@/components/Loader'
+  import Loader from '/src/components/Loader.vue'
   import gql from 'graphql-tag'
   const USER_QUERY = gql`
     query UserQuery($id: ID!) {

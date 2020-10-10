@@ -42,9 +42,11 @@
 </script>
 
 
-<style scoped lang="stylus">
-.userMenu
-  margin-left: 10px
-.username
-  margin-right: 10px
+<style scoped>
+.userMenu {
+  margin-left: 10px;
+}
+.username {
+  margin-right: 10px;
+}
 </style>

@@ -6,12 +6,12 @@
 
   <template v-else>
     <h1>Urządzenia rodzaju {{ deviceType.preferedName ? deviceType.preferedName : deviceType.name }}</h1>
-    <VueGoodTable
+    <!-- <VueGoodTable
       :columns="columns"
       :rows="devices"
       :lineNumbers="true"
       @on-row-click="onRowClick"
-    />
+    /> -->
   </template>
 </div>
 </template>
@@ -19,13 +19,9 @@
 <script>
   import gql from 'graphql-tag'
 
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
-  import moment from 'moment'
-  import pl from 'moment/locale/pl'
-  moment.locale('pl')
+  import dayjs from 'dayjs'
 
   // GraphQL query
   const DEVICES_QUERY = gql `
@@ -59,7 +55,7 @@
   `
 
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data: () => ({
       devices: {},
       deviceType: {},
@@ -68,8 +64,8 @@
         { label: 'Numer seryjny', field: 'serialNumber' },
         { label: 'Właściciel', field: 'owner.name' },
         { label: 'Rodzaj', field: 'type', formatFn: (type) => { return type.preferedName ? type.preferedName : type.name } },
-        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } },
-        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return moment().to(moment(date)) } }
+        { label: 'Konserwacja', field: 'nextConservation', type: 'date', formatFn: (date) => { return dayjs().to(dayjs(date)) } },
+        { label: 'UDT', field: 'nextUDT', type: 'date', formatFn: (date) => { return dayjs().to(dayjs(date)) } }
       ],
     }),
 

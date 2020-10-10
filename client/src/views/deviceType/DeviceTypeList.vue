@@ -8,12 +8,12 @@
       <router-link :to="{ name: 'DeviceTypeNew'}" tag="button">Dodaj nowy</router-link>
       <h1>Rodzaje urządzeń</h1>
 
-      <VueGoodTable
+      <!-- <VueGoodTable
         :columns="columns"
         :rows="deviceTypes"
         :lineNumbers="true"
         @on-row-click="onRowClick"
-      />
+      /> -->
 
     </template>
   </div>
@@ -22,9 +22,7 @@
 <script>
   import gql from 'graphql-tag'
 
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
   const DEVICE_TYPES_QUERY = gql `
     query DeviceTypesQuery {
@@ -39,7 +37,7 @@
   `
 
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data: () => ({
       columns: [
         { label: 'Nazwa', field: 'preferedName'},

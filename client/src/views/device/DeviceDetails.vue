@@ -6,7 +6,7 @@
 
   <template v-else-if="error.hasOwnProperty('gqlError')">
     <h1>{{error.gqlError.message}}</h1>
-    
+
   </template>
 
   <template v-else>
@@ -53,20 +53,19 @@
   </template>
 </div>
 </template>
-<style lang="stylus">
-.notesCont
-  position: absolute
-  right: 20px
-  top: 50px
-  width: calc(100vw - 900px)
+<style>
+.notesCont {
+  position: absolute;
+  right: 20px;
+  top: 50px;
+  width: calc(100vw - 900px);
+}
 </style>
 <script>
-  import Loader from '@/components/Loader'
-  import NotesList from '@/components/NotesList'
+  import Loader from '/src/components/Loader.vue'
+  import NotesList from '/src/components/NotesList.vue'
 
-  import moment from 'moment'
-  import pl from 'moment/locale/pl'
-  moment.locale('pl')
+  import dayjs from 'dayjs'
 
   import gql from 'graphql-tag'
 
@@ -177,12 +176,12 @@
       },
       getAproachingTerms() {
 
-        const now = moment()
+        const now = dayjs()
 
         let nextConservationDate = null
         let tillNextConservation = null
         if (this.device.nextConservation !== null) {
-          nextConservationDate = moment(this.device.nextConservation)
+          nextConservationDate = dayjs(this.device.nextConservation)
           tillNextConservation = now.isSame(nextConservationDate, 'day') ? 'dzisiaj' : now.to(nextConservationDate)
           nextConservationDate = nextConservationDate.format("MM/YYYY")
         }
@@ -190,7 +189,7 @@
         const nextUDTDate = null
         const tillNextUDT =  null
         if (this.device.nextUDTDate) {
-          nextUDTDate = moment(this.device.nextUDT)
+          nextUDTDate = dayjs(this.device.nextUDT)
           tillNextUDT = now.isSame(nextUDTDate, 'day') ? 'dzisiaj' : now.to(nextUDTDate)
           nextUDTDate = nextUDTDate.format("MM/YYYY")
         }
@@ -202,7 +201,7 @@
 
       },
       getDate(date) {
-        return moment(new Date(date)).format("DD/M/YYYY")
+        return dayjs(new Date(date)).format("DD/M/YYYY")
       },
       getActionName(action) {
         if (action.__typename == "Conservation") return "Konserwacja"

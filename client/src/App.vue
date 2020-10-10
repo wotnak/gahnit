@@ -20,10 +20,10 @@
 <script>
   import { USER_ID, AUTH_TOKEN  } from './constants'
 
-  import TopBar from '@/components/TopBar.vue';
-  import Menu from '@/components/Menu.vue';
+  import TopBar from './components/TopBar.vue';
+  import Menu from './components/Menu.vue';
 
-  import '@/styles/styles.styl'
+import './styles/styles.css'
 
   export default {
     name: 'app',

@@ -8,12 +8,12 @@
       <router-link :to="{ name: 'UserNew'}" tag="button">Dodaj nowego</router-link>
       <h1>Użytkownicy</h1>
 
-      <VueGoodTable
+      <!-- <VueGoodTable
         :columns="columns"
         :rows="users"
         :lineNumbers="true"
         @on-row-click="onRowClick"
-      />
+      /> -->
 
     </template>
   </div>
@@ -22,9 +22,7 @@
 <script>
   import gql from 'graphql-tag'
 
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
   const USERS_QUERY = gql `
     query UsersQuery {
@@ -37,7 +35,7 @@
   `
 
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data: () => ({
       columns: [
         { label: 'Login', field: 'username'},

@@ -34,50 +34,50 @@
 </div>
 </template>
 
-<style lang="stylus" scoped>
-form
-  input, button
-    z-index: 3
-form
-  flex-direction: row
-
-#searchResultsBg
-  width: 100%
-  height: 100%
-  position: fixed
-  top: 0
-  left: 0
-  z-index: 2
-  background-color: black
-  opacity: .7
-
-.results
-  position: absolute
-  background-color: #1d2227
-  color: #fff
-  top: 40px
-  border-radius: 0 0 2px 2px
-  width: 800px
-  left: calc(50vw - 400px)
-  z-index: 3
-  
-  table
-    width: 100%
-
-    tr:hover
-      background-color: lighten(#1d2227, 20%)
-
-
-    tr:last-child > a
-      border-radius: 0 0 2px 2px
-
-    a
-      color: inherit
-      display: block
-      text-align: left
-      padding: 5px
-      text-decoration: none
-
+<style scoped>
+form input,
+form button {
+  z-index: 3;
+}
+form {
+  flex-direction: row;
+}
+#searchResultsBg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: #000;
+  opacity: 0.7;
+}
+.results {
+  position: absolute;
+  background-color: #1d2227;
+  color: #fff;
+  top: 40px;
+  border-radius: 0 0 2px 2px;
+  width: 800px;
+  left: calc(50vw - 400px);
+  z-index: 3;
+}
+.results table {
+  width: 100%;
+}
+.results table tr:hover {
+  background-color: #434e5a;
+}
+.results table tr:last-child > a {
+  border-radius: 0 0 2px 2px;
+}
+.results table a {
+  color: inherit;
+  display: block;
+  text-align: left;
+  padding: 5px;
+  text-decoration: none;
+}
 </style>
 
 <script>

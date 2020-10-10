@@ -20,34 +20,35 @@
 </div>
 </template>
 
-<style lang="stylus">
-.note
-  background-color: #ffffff
-  box-shadow: 2px 2px 0 #d6d6d6
-  border: 1px solid #d6d6d6
-  padding: 5px
-  border-radius: 2px
-  
-  .note--content
-    margin: 0
-    
-  .note--details
-    font-size: 12px
-    color: #95999c
-    
-    a
-      color: inherit
-      text-decoration: underline
-      cursor: pointer
-      margin-left: 2px;
-    .note--details--actions
-      float: right
+<style>
+.note {
+  background-color: #fff;
+  box-shadow: 2px 2px 0 #d6d6d6;
+  border: 1px solid #d6d6d6;
+  padding: 5px;
+  border-radius: 2px;
+}
+.note .note--content {
+  margin: 0;
+}
+.note .note--details {
+  font-size: 12px;
+  color: #95999c;
+}
+.note .note--details a {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 2px;
+}
+.note .note--details .note--details--actions {
+  float: right;
+}
+
 </style>
 
 <script>
-  import moment from 'moment'
-  import pl from 'moment/locale/pl'
-  moment.locale('pl')
+  import dayjs from 'dayjs'
 
   import gql from 'graphql-tag'
 
@@ -86,7 +87,7 @@
     }),
     methods: {
       getTime(timestamp) {
-        return moment(timestamp, "DD-MM-YYYY HH:mm:ss GMTZZ").format("H:mm, D/MM/YYYY")
+        return dayjs(timestamp, "DD-MM-YYYY HH:mm:ss GMTZZ").format("H:mm, D/MM/YYYY")
       },
       deleteNote(noteId) {
         const variables = {

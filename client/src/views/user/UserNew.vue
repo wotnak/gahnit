@@ -51,7 +51,3 @@
     }
   }
 </script>
-
-<style>
-
-</style>

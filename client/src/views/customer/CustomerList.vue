@@ -17,12 +17,12 @@
   <button v-else @click="syncWithSubiekt()">Synchronizuj z subiektem</button>
 </div>
 -->
-    <VueGoodTable
+    <!-- <VueGoodTable
       :columns="columns"
       :rows="customers"
       :lineNumbers="true"
       @on-row-click="onRowClick"
-    />
+    /> -->
 
   </template>
 </div>
@@ -31,9 +31,7 @@
 <script>
   import gql from 'graphql-tag'
 
-  import Loader from '@/components/Loader'
-  import { VueGoodTable } from 'vue-good-table'
-  import 'vue-good-table/dist/vue-good-table.css'
+  import Loader from '/src/components/Loader.vue'
 
   const CUSTOMERS_QUERY = gql `
     query customers($offset: Int!, $limit: Int!) {
@@ -52,7 +50,7 @@
   `
 
   export default {
-    components: { Loader, VueGoodTable },
+    components: { Loader },
     data: () => ({
       columns: [
         { label: 'Symbol', field: 'symbol'},
@@ -97,11 +95,13 @@
   }
 </script>
 
-<style lang="stylus" scoped>
-.sync
-  position: absolute
-  right: 10px
-  top: 50px
-  .syncing
-    cursor: wait
+<style scoped>
+.sync {
+  position: absolute;
+  right: 10px;
+  top: 50px;
+}
+.sync .syncing {
+    cursor: wait;
+}
 </style>
